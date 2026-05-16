@@ -1,375 +1,461 @@
+/* =========================
+   GENEL AYARLAR
+   ========================= */
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  background-color: #F8FAFC;
-  color: #1E293B;
+  font-family: Arial, sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
 }
 
-header {
-  background: linear-gradient(135deg, #0F172A, #4F46E5);
-  color: white;
-  padding: 24px;
-  text-align: center;
+a {
+  text-decoration: none;
 }
 
-nav {
-  background-color: #111827;
+img {
+  max-width: 100%;
+  display: block;
 }
 
-nav ul {
+/* =========================
+   NAVBAR
+   ========================= */
+
+.site-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 12px 24px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #0f172a;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.logo strong {
+  color: #f97316;
+}
+
+.logo-icon {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, #38bdf8, #4f46e5);
+  color: #ffffff;
+  display: inline-flex;
   justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
   list-style: none;
   margin: 0;
-  padding: 14px;
-  gap: 25px;
+  padding: 0;
 }
 
-nav ul li {
-  margin: 0 15px;
+.nav-links a {
+  color: #0f172a;
+  font-size: 15px;
+  font-weight: 600;
 }
 
-nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-}
-nav ul li a:hover {
-  color: #C4B5FD;
+.nav-links a:hover {
+  color: #4f46e5;
 }
 
-main {
-  padding: 40px;
+.nav-button {
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: #ffffff !important;
+  padding: 9px 16px;
+  border-radius: 22px;
+}
+
+/* =========================
+   ANA SAYFA
+   ========================= */
+
+.home-page {
+  background-color: #f8fafc;
+}
+
+.main-hero {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  overflow: hidden;
+}
+
+.main-hero img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 900px;
+  width: 90%;
   text-align: center;
+  background-color: rgba(255, 255, 255, 0.82);
+  padding: 26px;
+  border-radius: 22px;
 }
 
-footer {
-  background: #222;
-  color: white;
-  text-align: center;
-  padding: 15px;
+.hero-overlay h1 {
+  font-size: 38px;
+  color: #0f172a;
+  margin: 0 0 12px;
 }
 
-
-
-.contact-page {
-  padding: 50px 20px;
-}
-
-.contact-hero {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.contact-hero h2 {
-  font-size: 36px;
-  margin-bottom: 10px;
-  color: #0F172A;
-}
-
-.contact-hero p {
+.hero-overlay p {
   font-size: 18px;
-  color: #475569;
+  line-height: 1.6;
+  color: #334155;
+  margin-bottom: 20px;
 }
 
-.contact-container {
-  max-width: 1100px;
-  margin: 0 auto;
+.hero-actions {
   display: flex;
-  gap: 30px;
-  align-items: stretch;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
-.contact-info,
-.contact-form-area {
-  flex: 1;
-  background: white;
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+.hero-btn,
+.btn-primary,
+.btn-secondary,
+.detail-btn {
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 700;
 }
 
-.contact-info h3,
-.contact-form-area h3 {
-  margin-top: 0;
-  color: #4F46E5;
+.hero-btn.primary,
+.btn-primary,
+.detail-btn {
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+  color: #ffffff;
 }
 
-.contact-info p {
+.hero-btn.secondary,
+.btn-secondary {
+  background-color: #ffffff;
+  color: #4f46e5;
+  border: 1px solid #4f46e5;
+}
+
+.home-info {
+  max-width: 950px;
+  margin: 50px auto 30px;
+  padding: 35px 24px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+}
+
+.home-info h2 {
+  color: #0f172a;
+  font-size: 30px;
+  margin-bottom: 16px;
+}
+
+.home-info p {
+  color: #475569;
+  font-size: 17px;
   line-height: 1.8;
 }
 
-.contact-box {
-  margin-top: 25px;
-  background-color: #EEF2FF;
-  padding: 20px;
-  border-radius: 12px;
+.home-features {
+  max-width: 1100px;
+  margin: 30px auto 70px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
-.contact-box h4 {
+.feature-card {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+}
+
+.feature-card h3 {
+  color: #0f172a;
   margin-top: 0;
-  color: #312E81;
 }
 
-.contact-form .form-group {
-  margin-bottom: 18px;
+.feature-card p {
+  color: #475569;
+  line-height: 1.7;
 }
 
-.contact-form label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #334155;
-}
+/* =========================
+   ORTAK SAYFA BAŞLIKLARI
+   ========================= */
 
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  padding: 14px;
-  border: 1px solid #CBD5E1;
-  border-radius: 10px;
-  font-size: 15px;
-  box-sizing: border-box;
-  outline: none;
-  transition: 0.3s;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-  border-color: #8B5CF6;
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
-}
-
-.btn-contact {
-  width: 100%;
-  background: linear-gradient(135deg, #4F46E5, #8B5CF6);
-  color: white;
-  border: none;
-  padding: 14px;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.btn-contact:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
-}
-
-footer {
-  background-color: #0F172A;
-  color: white;
+.page-hero,
+.discover-hero,
+.comments-hero,
+.contact-hero,
+.detail-hero {
   text-align: center;
-  padding: 18px;
-  margin-top: 40px;
-}
-
-@media (max-width: 768px) {
-  .contact-container {
-    flex-direction: column;
-  }
-
-  .contact-hero h2 {
-    font-size: 28px;
-  }
-}
-.universities-page {
-  background-color: #f8fafc;
-  min-height: 100vh;
-}
-
-.page-hero {
-  text-align: center;
-  padding: 50px 20px 20px;
+  padding: 50px 20px 30px;
   background: linear-gradient(135deg, #eef2ff, #f8fafc);
 }
 
-.page-hero h2 {
-  font-size: 36px;
+.page-hero h1,
+.page-hero h2,
+.discover-hero h1,
+.comments-hero h1,
+.contact-hero h2,
+.detail-hero h2 {
+  font-size: 38px;
   color: #0f172a;
   margin-bottom: 10px;
 }
 
-.page-hero p {
+.page-hero p,
+.discover-hero p,
+.comments-hero p,
+.contact-hero p,
+.detail-hero p {
   color: #475569;
-  font-size: 18px;
+  font-size: 17px;
 }
 
-.filter-section {
-  max-width: 1200px;
-  margin: 30px auto 10px;
-  padding: 0 20px;
+/* =========================
+   KEŞFET SAYFASI
+   ========================= */
+
+.discover-page {
+  min-height: 100vh;
 }
 
-.filter-form {
-  display: flex;
-  gap: 15px;
-  align-items: end;
-  flex-wrap: wrap;
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+.top-search-section {
+  background-color: #ffffff;
+  padding: 24px 20px;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.filter-form label {
+.top-search-form {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.top-search-form label {
   display: block;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #334155;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #0f172a;
 }
 
-.filter-form select,
-.filter-form button {
-  padding: 12px 14px;
-  border-radius: 10px;
+.top-search-row {
+  display: flex;
+  gap: 12px;
+}
+
+.top-search-row input {
+  flex: 1;
+  padding: 15px 16px;
   border: 1px solid #cbd5e1;
-  font-size: 15px;
+  border-radius: 12px;
+  font-size: 16px;
 }
 
-.filter-form button {
-  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
-  color: white;
+.top-search-row input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14);
+}
+
+.top-search-row button {
   border: none;
+  padding: 15px 22px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+  color: #ffffff;
+  font-weight: 700;
   cursor: pointer;
 }
 
-.university-list {
-  max-width: 1200px;
+.search-section {
+  max-width: 1100px;
   margin: 30px auto;
-  padding: 0 20px 50px;
+  padding: 0 20px;
+}
+
+.search-form {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
+  grid-template-columns: 1fr auto auto;
+  gap: 16px;
+  align-items: end;
+  background-color: #ffffff;
+  padding: 22px;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
 }
 
-.university-card {
-  background: #ffffff;
-  border-radius: 16px;
+.form-control label {
+  display: block;
+  margin-bottom: 8px;
+  color: #334155;
+  font-weight: 700;
+}
+
+.form-control input,
+.form-control select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+.form-control input:focus,
+.form-control select:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14);
+}
+
+.search-button,
+.clear-button {
+  border: none;
+  padding: 13px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+}
+
+.search-button {
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+  color: #ffffff;
+}
+
+.clear-button {
+  background-color: #eef2ff;
+  color: #4f46e5;
+}
+
+/* =========================
+   ÜNİVERSİTE KARTLARI
+   ========================= */
+
+.results-section,
+.university-list {
+  max-width: 1100px;
+  margin: 30px auto 70px;
+  padding: 0 20px;
+}
+
+.section-title {
+  margin-bottom: 20px;
+}
+
+.section-title h2 {
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.section-title p {
+  color: #64748b;
+}
+
+.university-grid,
+.university-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.university-card,
+.empty-result,
+.no-result {
+  background-color: #ffffff;
+  border-radius: 18px;
   padding: 24px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-  transition: transform 0.3s ease;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
 }
 
-.university-card:hover {
-  transform: translateY(-4px);
+.university-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.university-type,
+.university-city {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.university-type {
+  color: #4f46e5;
+  background-color: #eef2ff;
+}
+
+.university-city {
+  color: #0369a1;
+  background-color: #e0f2fe;
 }
 
 .university-card h3 {
-  margin-top: 0;
   color: #0f172a;
+  margin-top: 0;
+  margin-bottom: 12px;
 }
 
 .university-card p {
   color: #475569;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
-.detail-btn {
-  display: inline-block;
-  margin-top: 10px;
-  text-decoration: none;
-  background: #4f46e5;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 10px;
-}
-
+.empty-result,
 .no-result {
   grid-column: 1 / -1;
   text-align: center;
-  background: white;
-  padding: 25px;
-  border-radius: 14px;
 }
 
-@media (max-width: 768px) {
-  .university-list {
-    grid-template-columns: 1fr;
-  }
+/* =========================
+   DETAY SAYFASI
+   ========================= */
 
-  .filter-form {
-    flex-direction: column;
-    align-items: stretch;
-  }
-}
-.page {
-  background-color: #f8fafc;
-  min-height: 100vh;
-}
-
-.discover-grid,
-.comment-list,
-.forum-area {
-  max-width: 1100px;
-  margin: 35px auto;
-  padding: 0 20px 50px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-}
-
-.discover-card,
-.comment-card,
-.forum-card {
-  padding: 25px;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-}
-
-.discover-card h3,
-.comment-card h3,
-.forum-card h3 {
-  margin-top: 0;
-  color: #0f172a;
-}
-
-.discover-card p,
-.comment-card p,
-.forum-card p {
-  color: #475569;
-  line-height: 1.6;
-}
-
-.forum-card span {
-  display: inline-block;
-  margin-top: 10px;
-  background: #eef2ff;
-  color: #4f46e5;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 14px;
-}
-
-@media (max-width: 900px) {
-  .discover-grid,
-  .comment-list,
-  .forum-area {
-    grid-template-columns: 1fr;
-  }
-}
 .detail-page {
-  background-color: #f8fafc;
   min-height: 100vh;
-}
-
-.detail-hero {
-  text-align: center;
-  padding: 50px 20px;
-  background: linear-gradient(135deg, #eef2ff, #f8fafc);
-}
-
-.detail-hero h2 {
-  font-size: 36px;
-  color: #0f172a;
-  margin-bottom: 10px;
-}
-
-.detail-hero p {
-  color: #475569;
-  font-size: 18px;
 }
 
 .detail-container {
@@ -381,17 +467,17 @@ footer {
 .detail-card,
 .comment-form-card,
 .comments-card {
-  background: white;
+  background-color: #ffffff;
   padding: 25px;
-  border-radius: 16px;
+  border-radius: 18px;
   margin-bottom: 25px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
 }
 
 .comment-form-card label {
   display: block;
   margin-bottom: 8px;
-  font-weight: bold;
+  font-weight: 700;
   color: #334155;
 }
 
@@ -403,17 +489,16 @@ footer {
   margin-bottom: 18px;
   border: 1px solid #cbd5e1;
   border-radius: 10px;
-  box-sizing: border-box;
 }
 
 .comment-form-card button {
   background: linear-gradient(135deg, #4f46e5, #8b5cf6);
-  color: white;
+  color: #ffffff;
   border: none;
   padding: 12px 18px;
   border-radius: 10px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .single-comment {
@@ -421,96 +506,500 @@ footer {
   padding: 18px 0;
 }
 
-.single-comment h4 {
-  margin-bottom: 8px;
+/* =========================
+   YORUMLAR SAYFASI
+   ========================= */
+
+.reviews-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(79, 70, 229, 0.12), transparent 30%),
+    #f8fafc;
+}
+
+.reviews-hero {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 24px 28px;
+  text-align: center;
+}
+
+.reviews-label {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background-color: #eef2ff;
+  color: #4f46e5;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.reviews-hero h1 {
+  margin: 0 0 14px;
+  font-size: 42px;
   color: #0f172a;
 }
 
-.single-comment p {
+.reviews-hero p {
   color: #475569;
+  font-size: 18px;
+  line-height: 1.8;
 }
-.home-layout {
+
+.reviews-stats {
+  max-width: 1000px;
+  margin: 10px auto 35px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.review-stat-card,
+.review-card,
+.no-review-card {
+  background-color: #ffffff;
+  border-radius: 22px;
+  padding: 26px;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+  border: 1px solid #eef2ff;
+}
+
+.review-stat-card {
+  text-align: center;
+}
+
+.review-stat-card strong {
+  display: block;
+  font-size: 34px;
+  color: #4f46e5;
+  margin-bottom: 8px;
+}
+
+.review-stat-card span {
+  color: #64748b;
+  font-weight: 700;
+}
+
+.reviews-list {
+  max-width: 950px;
+  margin: 0 auto 80px;
+  padding: 0 24px;
+  display: grid;
+  gap: 22px;
+}
+
+.review-card-header {
   display: flex;
-  min-height: 90vh;
-  background: #f8fafc;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 18px;
 }
 
-/* SOL ALAN */
-.home-content {
-  flex: 3;
-  padding: 50px;
-}
-
-.home-content h1 {
-  font-size: 36px;
+.review-card-header h2 {
+  margin: 0 0 6px;
   color: #0f172a;
-  margin-bottom: 20px;
+  font-size: 22px;
 }
 
-.home-content p {
+.review-rating {
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+  color: #ffffff;
+  padding: 9px 13px;
+  border-radius: 999px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.review-text {
   font-size: 17px;
   line-height: 1.8;
-  color: #475569;
-  margin-bottom: 15px;
+  color: #334155;
 }
 
-.home-buttons {
-  margin-top: 25px;
+.review-footer {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  color: #64748b;
 }
 
-.primary-btn,
-.secondary-btn {
-  text-decoration: none;
-  padding: 12px 18px;
-  border-radius: 10px;
-  margin-right: 10px;
-  font-weight: bold;
+/* =========================
+   İLETİŞİM SAYFASI
+   ========================= */
+
+.contact-page {
+  padding: 50px 20px;
 }
 
-.primary-btn {
-  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
-  color: white;
+.contact-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 30px;
 }
 
-.secondary-btn {
-  border: 1px solid #4f46e5;
-  color: #4f46e5;
-}
-
-/* SAĞ SIDEBAR */
-.home-sidebar {
+.contact-info,
+.contact-form-area {
   flex: 1;
-  background: #0f172a;
-  color: white;
-  padding: 30px 20px;
+  background-color: #ffffff;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
 }
 
-.home-sidebar h3 {
-  margin-top: 0;
-  margin-bottom: 20px;
+.contact-box {
+  margin-top: 25px;
+  background-color: #eef2ff;
+  padding: 20px;
+  border-radius: 12px;
 }
 
-.home-sidebar a {
+.contact-form .form-group {
+  margin-bottom: 18px;
+}
+
+.contact-form label {
   display: block;
-  text-decoration: none;
-  color: white;
-  padding: 10px 12px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.05);
+  margin-bottom: 8px;
+  font-weight: 700;
 }
 
-.home-sidebar a:hover {
-  background: rgba(255,255,255,0.15);
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .home-layout {
+.btn-contact {
+  width: 100%;
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+  color: #ffffff;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* =========================
+   FORUM SAYFASI
+   ========================= */
+
+.forum-area,
+.discover-grid {
+  max-width: 1100px;
+  margin: 35px auto;
+  padding: 0 20px 50px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.forum-card,
+.discover-card {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+}
+
+.forum-card span {
+  display: inline-block;
+  margin-top: 10px;
+  background-color: #eef2ff;
+  color: #4f46e5;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+
+footer {
+  background-color: #0f172a;
+  color: #ffffff;
+  text-align: center;
+  padding: 18px;
+}
+
+/* =========================
+   RESPONSIVE TASARIM
+   ========================= */
+
+@media (max-width: 1000px) {
+  .home-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .university-grid,
+  .university-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .forum-area,
+  .discover-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .navbar {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .reviews-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .review-card-header,
+  .review-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact-container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 650px) {
+  .main-hero,
+  .main-hero img {
+    height: 430px;
+    min-height: 430px;
+  }
+
+  .hero-overlay {
+    top: 20px;
+    padding: 18px;
+  }
+
+  .hero-overlay h1,
+  .reviews-hero h1,
+  .discover-hero h1 {
+    font-size: 28px;
+  }
+
+  .top-search-row {
     flex-direction: column;
   }
 
-  .home-sidebar {
-    order: -1;
+  .top-search-row button,
+  .search-button,
+  .clear-button,
+  .hero-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .search-form {
+    grid-template-columns: 1fr;
+  }
+
+  .home-features,
+  .university-grid,
+  .university-list {
+    grid-template-columns: 1fr;
+  }
+}
+/* =========================
+   FORUM SAYFASI 
+   ========================= */
+
+.forum-page {
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+.forum-hero {
+  text-align: center;
+  padding: 55px 20px 30px;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+}
+
+.forum-hero h1 {
+  font-size: 38px;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.forum-hero p {
+  max-width: 760px;
+  margin: 0 auto;
+  color: #475569;
+  line-height: 1.7;
+  font-size: 17px;
+}
+
+.forum-main-container {
+  max-width: 950px;
+  margin: 35px auto 70px;
+  padding: 0 20px;
+}
+
+.question-create-box,
+.forum-question-card {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 22px;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+  border: 1px solid #eef2ff;
+}
+
+.question-create-box {
+  margin-bottom: 35px;
+}
+
+.question-create-box h2,
+.forum-questions h2 {
+  color: #0f172a;
+  margin-top: 0;
+}
+
+.question-create-box p {
+  color: #64748b;
+  margin-bottom: 22px;
+}
+
+.forum-form .form-group,
+.answer-form .form-group {
+  margin-bottom: 18px;
+}
+
+.forum-form label,
+.answer-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.forum-form input,
+.forum-form select,
+.forum-form textarea,
+.answer-form input,
+.answer-form textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+.forum-form input:focus,
+.forum-form select:focus,
+.forum-form textarea:focus,
+.answer-form input:focus,
+.answer-form textarea:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14);
+}
+
+.forum-submit-btn,
+.answer-form button {
+  border: none;
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+  color: white;
+  padding: 13px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.forum-question-card {
+  margin-bottom: 24px;
+}
+
+.forum-question-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.forum-tag {
+  display: inline-block;
+  background-color: #eef2ff;
+  color: #4f46e5;
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.forum-question-card h3 {
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.forum-question-card p {
+  color: #475569;
+  line-height: 1.7;
+}
+
+.forum-answer-box {
+  background-color: #f8fafc;
+  border-left: 4px solid #4f46e5;
+  padding: 16px;
+  border-radius: 12px;
+  margin: 18px 0;
+}
+
+.forum-answer-box h4 {
+  margin: 0 0 8px;
+  color: #0f172a;
+}
+
+.answer-form-box {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 22px;
+  margin-top: 22px;
+}
+
+.answer-form-box h4 {
+  margin: 0 0 18px;
+  color: #0f172a;
+}
+
+@media (max-width: 650px) {
+  .forum-hero h1 {
+    font-size: 30px;
+  }
+
+  .question-create-box,
+  .forum-question-card {
+    padding: 22px;
+  }
+
+  .forum-question-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .forum-submit-btn,
+  .answer-form button {
+    width: 100%;
   }
 }

@@ -1,46 +1,58 @@
 <?php include("includes/header.php"); ?>
 
-<main class="home-layout">
+<main class="home-page">
 
-  <!-- SOL TARAF -->
-  <section class="home-content">
-    <h1>UniRehber Nedir?</h1>
+  <!-- Ana tanıtım alanı -->
+  <section class="main-hero">
+    <img src="images/hero-unirehber.jpg" alt="Üniversite rehberi platformunu kullanan öğrenciler">
 
-    <p>
-      UniRehber, öğrencilerin üniversite tercih sürecinde daha bilinçli kararlar
-      verebilmesi için geliştirilmiş bir platformdur. Türkiye ve Kuzey Kıbrıs’taki
-      üniversiteler hakkında detaylı bilgilere ulaşabilir, öğrenci yorumlarını
-      inceleyebilirsiniz.
-    </p>
+    <div class="hero-overlay">
+      <h1>Üniversiteni Keşfet & Deneyimlerini Paylaş!</h1>
+      <p>
+        UniRehber ile Türkiye ve KKTC’deki üniversiteleri incele,
+        öğrenci yorumlarını oku ve doğru tercihi yap.
+      </p>
 
-    <p>
-      Bu platform sayesinde üniversiteleri şehir bazlı filtreleyebilir,
-      üniversite detaylarını görüntüleyebilir ve gerçek kullanıcı deneyimlerine
-      ulaşabilirsiniz.
-    </p>
-
-    <p>
-      Amacımız, öğrencilerin sadece puanlara göre değil, gerçek deneyimlere göre
-      tercih yapmasını sağlamaktır.
-    </p>
-
-    <div class="home-buttons">
-      <a href="universities.php" class="primary-btn">Üniversiteleri Gör</a>
-      <a href="yorumlar.php" class="secondary-btn">Yorumları İncele</a>
+      <div class="hero-actions">
+        <a href="universities.php" class="hero-btn primary">Keşfet</a>
+        <a href="yorumlar.php" class="hero-btn secondary">Yorumları Gör</a>
+      </div>
     </div>
   </section>
 
-  <!-- SAĞ SIDEBAR -->
-  <aside class="home-sidebar">
-    <h3>Menü</h3>
+  <!-- Site hakkında bilgi -->
+  <section class="home-info">
+    <h2>UniRehber Nedir?</h2>
+    <p>
+      UniRehber, öğrencilerin üniversite tercih sürecinde daha bilinçli kararlar
+      verebilmesi için geliştirilmiş bir üniversite rehberi platformudur.
+      Kullanıcılar üniversiteleri şehir bazlı filtreleyebilir, detay sayfalarını
+      inceleyebilir ve gerçek öğrenci deneyimlerine ulaşabilir.
+    </p>
+  </section>
 
-    <a href="index.php">Ana Sayfa</a>
-    <a href="universities.php">Üniversiteler</a>
-    <a href="kesfet.php">Keşfet</a>
-    <a href="yorumlar.php">Yorumlar</a>
-    <a href="forum.php">Forum</a>
-    <a href="contact.php">İletişim</a>
-  </aside>
+  <!-- Özellikler -->
+  <section class="home-features">
+    <article class="feature-card">
+      <h3>Üniversite Keşfi</h3>
+      <p>Türkiye ve KKTC’deki üniversiteleri şehirlerine göre filtreleyerek inceleyebilirsin.</p>
+    </article>
+
+    <article class="feature-card">
+      <h3>Öğrenci Yorumları</h3>
+      <p>Üniversiteler hakkında gerçek öğrencilerin deneyimlerini okuyabilirsin.</p>
+    </article>
+
+    <article class="feature-card">
+      <h3>Bölüm Deneyimleri</h3>
+      <p>Bölümlere göre yorumları inceleyerek eğitim süreci hakkında fikir edinebilirsin.</p>
+    </article>
+
+    <article class="feature-card">
+      <h3>Kampüs Hayatı</h3>
+      <p>Sosyal yaşam, ulaşım, barınma ve kampüs olanakları hakkında bilgi alabilirsin.</p>
+    </article>
+  </section>
 
 </main>
 
