@@ -27,7 +27,7 @@ main {
 }
 
 a {
-  text-decoration: none;
+  text-decoration: none;  /* Linklerin altını kaldırır */
 }
 
 img {

@@ -1,21 +1,14 @@
 <?php
+$host = "localhost";
+$user = "root";
+$password = "";
+$database = "unirehber";
 
-include("env.php");
-
-// .env dosyasını yükle
-loadEnv(__DIR__ . "/../.env");
-
-// ENV değerlerini al
-$host = $_ENV['DB_HOST'];
-$user = $_ENV['DB_USER'];
-$pass = $_ENV['DB_PASS'];
-$db   = $_ENV['DB_NAME'];
-
-// bağlantı
-$conn = mysqli_connect($host, $user, $pass, $db);
+$conn = mysqli_connect($host, $user, $password, $database);
 
 if (!$conn) {
     die("Veritabanı bağlantı hatası: " . mysqli_connect_error());
 }
 
 mysqli_set_charset($conn, "utf8mb4");
+?>
