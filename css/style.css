@@ -1,16 +1,29 @@
 /* =========================
-   GENEL AYARLAR
+   GENEL SAYFA AYARLARI
    ========================= */
 
 * {
   box-sizing: border-box;
 }
 
+html,
 body {
+  height: 100%;
   margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   font-family: Arial, sans-serif;
   background-color: #f8fafc;
   color: #1e293b;
+}
+
+main {
+  flex: 1;
+  width: 100%;
 }
 
 a {
@@ -27,11 +40,13 @@ img {
    ========================= */
 
 .site-header {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
   position: sticky;
   top: 0;
   z-index: 1000;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .navbar {
@@ -70,7 +85,7 @@ img {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 22px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -91,6 +106,56 @@ img {
   color: #ffffff !important;
   padding: 9px 16px;
   border-radius: 22px;
+}
+
+.user-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* =========================
+   ORTAK SAYFA BAŞLIKLARI
+   ========================= */
+
+.page-hero,
+.discover-hero,
+.comments-hero,
+.contact-hero,
+.detail-hero,
+.forum-hero {
+  text-align: center;
+  padding: 55px 20px 35px;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+}
+
+.page-hero h1,
+.page-hero h2,
+.discover-hero h1,
+.comments-hero h1,
+.contact-hero h2,
+.detail-hero h2,
+.forum-hero h1 {
+  font-size: 38px;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.page-hero p,
+.discover-hero p,
+.comments-hero p,
+.contact-hero p,
+.detail-hero p,
+.forum-hero p {
+  color: #475569;
+  font-size: 17px;
+  line-height: 1.7;
 }
 
 /* =========================
@@ -218,39 +283,341 @@ img {
   color: #475569;
   line-height: 1.7;
 }
+/* =========================================================
+   ÜNİVERSİTELER SAYFASI YENİ TASARIM
+   ========================================================= */
 
-/* =========================
-   ORTAK SAYFA BAŞLIKLARI
-   ========================= */
+/* Sayfa genel alanı */
+.universities-page {
+  width: 100%;
+  background: #f8fafc;
+}
 
-.page-hero,
-.discover-hero,
-.comments-hero,
-.contact-hero,
-.detail-hero {
+/* Hero alanı */
+.page-hero {
+  padding: 80px 20px 50px;
   text-align: center;
-  padding: 50px 20px 30px;
-  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  background:
+    linear-gradient(
+      135deg,
+      #eef2ff,
+      #f8fafc
+    );
 }
 
-.page-hero h1,
-.page-hero h2,
-.discover-hero h1,
-.comments-hero h1,
-.contact-hero h2,
-.detail-hero h2 {
-  font-size: 38px;
+.page-hero h2 {
+  font-size: 52px;
+  margin-bottom: 16px;
   color: #0f172a;
-  margin-bottom: 10px;
 }
 
-.page-hero p,
-.discover-hero p,
-.comments-hero p,
-.contact-hero p,
-.detail-hero p {
+.page-hero p {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.8;
   color: #475569;
-  font-size: 17px;
+}
+
+/* =========================================================
+   ARAMA & FİLTRE ALANI
+   ========================================================= */
+
+.filter-section {
+  width: 100%;
+  margin-top: -25px;
+  margin-bottom: 40px;
+  padding: 0 20px;
+}
+
+/* Form container */
+.filter-form {
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  background: #ffffff;
+
+  padding: 28px;
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 15px 35px
+    rgba(15, 23, 42, 0.08);
+
+  display: grid;
+
+  grid-template-columns:
+    1.5fr
+    1fr
+    auto
+    auto;
+
+  gap: 18px;
+
+  align-items: end;
+}
+
+/* Form grubu */
+.filter-form div {
+  width: 100%;
+}
+
+/* Label */
+.filter-form label {
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  color: #334155;
+}
+
+/* Input & Select */
+.filter-form input,
+.filter-form select {
+  width: 100%;
+
+  height: 52px;
+
+  padding: 0 16px;
+
+  border: 1px solid #dbeafe;
+
+  border-radius: 14px;
+
+  background: #f8fafc;
+
+  font-size: 15px;
+
+  transition: 0.2s;
+}
+
+/* Focus efekti */
+.filter-form input:focus,
+.filter-form select:focus {
+  outline: none;
+
+  border-color: #4f46e5;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(79, 70, 229, 0.12);
+}
+
+/* Filtrele butonu */
+.filter-form button {
+  height: 52px;
+
+  padding: 0 26px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #4f46e5,
+      #7c3aed
+    );
+
+  color: #ffffff;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+/* Hover */
+.filter-form button:hover {
+  transform: translateY(-2px);
+}
+
+/* Temizle butonu */
+.clear-button {
+  height: 52px;
+
+  padding: 0 24px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: #eef2ff;
+
+  color: #4f46e5;
+
+  font-weight: 700;
+
+  transition: 0.25s;
+}
+
+.clear-button:hover {
+  background: #dbeafe;
+}
+
+/* =========================================================
+   ÜNİVERSİTE KARTLARI
+   ========================================================= */
+
+.university-list {
+  max-width: 1180px;
+
+  margin: 0 auto 80px;
+
+  padding: 0 20px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 28px;
+}
+
+/* Kart */
+.university-card {
+  background: #ffffff;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 12px 30px
+    rgba(15, 23, 42, 0.07);
+
+  transition: 0.3s;
+}
+
+/* Hover */
+.university-card:hover {
+  transform: translateY(-7px);
+
+  box-shadow:
+    0 20px 40px
+    rgba(15, 23, 42, 0.12);
+}
+
+/* İçerik */
+.card-content {
+  padding: 28px;
+}
+
+/* Üniversite adı */
+.card-content h3 {
+  font-size: 25px;
+
+  line-height: 1.4;
+
+  color: #0f172a;
+
+  margin-top: 0;
+  margin-bottom: 18px;
+}
+
+/* Açıklama */
+.card-content p {
+  color: #475569;
+
+  line-height: 1.8;
+
+  margin-bottom: 14px;
+}
+
+/* İncele butonu */
+.detail-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 12px;
+
+  padding: 12px 20px;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #4f46e5,
+      #8b5cf6
+    );
+
+  color: #ffffff;
+
+  font-weight: 700;
+
+  transition: 0.25s;
+}
+
+/* Hover */
+.detail-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Sonuç bulunamadı */
+.no-result {
+  grid-column: 1 / -1;
+
+  text-align: center;
+
+  background: #ffffff;
+
+  padding: 40px;
+
+  border-radius: 24px;
+
+  color: #64748b;
+
+  box-shadow:
+    0 10px 25px
+    rgba(15, 23, 42, 0.08);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+  .filter-form {
+    grid-template-columns: 1fr;
+  }
+
+  .university-list {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+
+  .page-hero h2 {
+    font-size: 36px;
+  }
+
+  .university-list {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-form button,
+  .clear-button {
+    width: 100%;
+  }
 }
 
 /* =========================
@@ -292,12 +659,6 @@ img {
   font-size: 16px;
 }
 
-.top-search-row input:focus {
-  outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14);
-}
-
 .top-search-row button {
   border: none;
   padding: 15px 22px;
@@ -308,155 +669,9 @@ img {
   cursor: pointer;
 }
 
-.search-section {
-  max-width: 1100px;
-  margin: 30px auto;
-  padding: 0 20px;
-}
-
-.search-form {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 16px;
-  align-items: end;
-  background-color: #ffffff;
-  padding: 22px;
-  border-radius: 18px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
-}
-
-.form-control label {
-  display: block;
-  margin-bottom: 8px;
-  color: #334155;
-  font-weight: 700;
-}
-
-.form-control input,
-.form-control select {
-  width: 100%;
-  padding: 13px 14px;
-  border: 1px solid #cbd5e1;
-  border-radius: 12px;
-  font-size: 15px;
-}
-
-.form-control input:focus,
-.form-control select:focus {
-  outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14);
-}
-
-.search-button,
-.clear-button {
-  border: none;
-  padding: 13px 18px;
-  border-radius: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  text-align: center;
-}
-
-.search-button {
-  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
-  color: #ffffff;
-}
-
-.clear-button {
-  background-color: #eef2ff;
-  color: #4f46e5;
-}
-
-/* =========================
-   ÜNİVERSİTE KARTLARI
-   ========================= */
-
-.results-section,
-.university-list {
-  max-width: 1100px;
-  margin: 30px auto 70px;
-  padding: 0 20px;
-}
-
-.section-title {
-  margin-bottom: 20px;
-}
-
-.section-title h2 {
-  color: #0f172a;
-  margin-bottom: 6px;
-}
-
-.section-title p {
-  color: #64748b;
-}
-
-.university-grid,
-.university-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-}
-
-.university-card,
-.empty-result,
-.no-result {
-  background-color: #ffffff;
-  border-radius: 18px;
-  padding: 24px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
-}
-
-.university-card-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.university-type,
-.university-city {
-  font-size: 13px;
-  font-weight: 700;
-  padding: 6px 10px;
-  border-radius: 999px;
-}
-
-.university-type {
-  color: #4f46e5;
-  background-color: #eef2ff;
-}
-
-.university-city {
-  color: #0369a1;
-  background-color: #e0f2fe;
-}
-
-.university-card h3 {
-  color: #0f172a;
-  margin-top: 0;
-  margin-bottom: 12px;
-}
-
-.university-card p {
-  color: #475569;
-  line-height: 1.7;
-}
-
-.empty-result,
-.no-result {
-  grid-column: 1 / -1;
-  text-align: center;
-}
-
 /* =========================
    DETAY SAYFASI
    ========================= */
-
-.detail-page {
-  min-height: 100vh;
-}
 
 .detail-container {
   max-width: 900px;
@@ -630,6 +845,107 @@ img {
 }
 
 /* =========================
+   FORUM SAYFASI
+   ========================= */
+
+.forum-main-container {
+  max-width: 950px;
+  margin: 35px auto 70px;
+  padding: 0 20px;
+}
+
+.question-create-box,
+.forum-question-card {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 22px;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+  border: 1px solid #eef2ff;
+}
+
+.question-create-box {
+  margin-bottom: 35px;
+}
+
+.question-create-box h2,
+.forum-questions h2 {
+  color: #0f172a;
+  margin-top: 0;
+}
+
+.question-create-box p {
+  color: #64748b;
+}
+
+.forum-question-card {
+  margin-bottom: 24px;
+}
+
+.forum-question-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.forum-tag {
+  display: inline-block;
+  background-color: #eef2ff;
+  color: #4f46e5;
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.forum-form label,
+.answer-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.forum-form input,
+.forum-form select,
+.forum-form textarea,
+.answer-form textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+.forum-submit-btn,
+.answer-form button {
+  border: none;
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+  color: white;
+  padding: 13px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.forum-answer-box {
+  background-color: #f8fafc;
+  border-left: 4px solid #4f46e5;
+  padding: 16px;
+  border-radius: 12px;
+  margin: 18px 0;
+}
+
+.answer-form-box {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 22px;
+  margin-top: 22px;
+}
+
+/* =========================
    İLETİŞİM SAYFASI
    ========================= */
 
@@ -690,36 +1006,134 @@ img {
   font-weight: 700;
 }
 
+.success-message {
+  background: #dcfce7;
+  color: #166534;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
 /* =========================
-   FORUM SAYFASI
+   LOGIN / REGISTER
    ========================= */
 
-.forum-area,
-.discover-grid {
-  max-width: 1100px;
-  margin: 35px auto;
-  padding: 0 20px 50px;
+.auth-page {
+  width: 100%;
+  padding: 70px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-main-box {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 26px;
+  overflow: hidden;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
+  grid-template-columns: 1fr 1fr;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
 }
 
-.forum-card,
-.discover-card {
-  background-color: #ffffff;
-  padding: 25px;
+.auth-left {
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+  color: #ffffff;
+  padding: 55px;
+}
+
+.auth-left h2 {
+  font-size: 38px;
+  margin: 0 0 20px;
+  color: #ffffff;
+}
+
+.auth-left p {
+  color: #eef2ff;
+  line-height: 1.8;
+  font-size: 17px;
+}
+
+.auth-info-card {
+  margin-top: 28px;
+  background: rgba(255, 255, 255, 0.14);
+  padding: 24px;
   border-radius: 18px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
 }
 
-.forum-card span {
-  display: inline-block;
-  margin-top: 10px;
-  background-color: #eef2ff;
+.auth-info-card h4 {
+  margin: 0 0 12px;
+  color: #ffffff;
+}
+
+.auth-info-card ul {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 2;
+}
+
+.auth-right {
+  background: #ffffff;
+  padding: 55px;
+}
+
+.auth-right h2 {
+  margin: 0 0 25px;
+  color: #0f172a;
+  font-size: 34px;
+}
+
+.auth-right .form-group {
+  margin-bottom: 20px;
+}
+
+.auth-right label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.auth-right input {
+  width: 100%;
+  padding: 14px 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+.auth-btn {
+  width: 100%;
+  border: none;
+  padding: 15px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.auth-switch {
+  margin-top: 24px;
+  text-align: center;
+  color: #64748b;
+}
+
+.auth-switch a {
   color: #4f46e5;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 14px;
+  font-weight: 700;
+}
+
+.auth-error {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-weight: 700;
 }
 
 /* =========================
@@ -727,10 +1141,12 @@ img {
    ========================= */
 
 footer {
+  margin-top: auto;
   background-color: #0f172a;
   color: #ffffff;
   text-align: center;
-  padding: 18px;
+  padding: 22px 18px;
+  width: 100%;
 }
 
 /* =========================
@@ -747,9 +1163,19 @@ footer {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .forum-area,
-  .discover-grid {
+  .filter-form {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 850px) {
+  .auth-main-box {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-left,
+  .auth-right {
+    padding: 32px;
   }
 }
 
@@ -794,7 +1220,9 @@ footer {
 
   .hero-overlay h1,
   .reviews-hero h1,
-  .discover-hero h1 {
+  .discover-hero h1,
+  .forum-hero h1,
+  .page-hero h2 {
     font-size: 28px;
   }
 
@@ -805,187 +1233,18 @@ footer {
   .top-search-row button,
   .search-button,
   .clear-button,
-  .hero-btn {
+  .hero-btn,
+  .forum-submit-btn,
+  .answer-form button,
+  .filter-form button {
     width: 100%;
     text-align: center;
-  }
-
-  .search-form {
-    grid-template-columns: 1fr;
   }
 
   .home-features,
   .university-grid,
   .university-list {
     grid-template-columns: 1fr;
-  }
-}
-/* =========================
-   FORUM SAYFASI 
-   ========================= */
-
-.forum-page {
-  min-height: 100vh;
-  background-color: #f8fafc;
-}
-
-.forum-hero {
-  text-align: center;
-  padding: 55px 20px 30px;
-  background: linear-gradient(135deg, #eef2ff, #f8fafc);
-}
-
-.forum-hero h1 {
-  font-size: 38px;
-  color: #0f172a;
-  margin-bottom: 10px;
-}
-
-.forum-hero p {
-  max-width: 760px;
-  margin: 0 auto;
-  color: #475569;
-  line-height: 1.7;
-  font-size: 17px;
-}
-
-.forum-main-container {
-  max-width: 950px;
-  margin: 35px auto 70px;
-  padding: 0 20px;
-}
-
-.question-create-box,
-.forum-question-card {
-  background-color: #ffffff;
-  padding: 30px;
-  border-radius: 22px;
-  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
-  border: 1px solid #eef2ff;
-}
-
-.question-create-box {
-  margin-bottom: 35px;
-}
-
-.question-create-box h2,
-.forum-questions h2 {
-  color: #0f172a;
-  margin-top: 0;
-}
-
-.question-create-box p {
-  color: #64748b;
-  margin-bottom: 22px;
-}
-
-.forum-form .form-group,
-.answer-form .form-group {
-  margin-bottom: 18px;
-}
-
-.forum-form label,
-.answer-form label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 700;
-  color: #334155;
-}
-
-.forum-form input,
-.forum-form select,
-.forum-form textarea,
-.answer-form input,
-.answer-form textarea {
-  width: 100%;
-  padding: 13px 14px;
-  border: 1px solid #cbd5e1;
-  border-radius: 12px;
-  font-size: 15px;
-}
-
-.forum-form input:focus,
-.forum-form select:focus,
-.forum-form textarea:focus,
-.answer-form input:focus,
-.answer-form textarea:focus {
-  outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14);
-}
-
-.forum-submit-btn,
-.answer-form button {
-  border: none;
-  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
-  color: white;
-  padding: 13px 18px;
-  border-radius: 12px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.forum-question-card {
-  margin-bottom: 24px;
-}
-
-.forum-question-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.forum-tag {
-  display: inline-block;
-  background-color: #eef2ff;
-  color: #4f46e5;
-  padding: 7px 13px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.forum-question-card h3 {
-  color: #0f172a;
-  margin-bottom: 10px;
-}
-
-.forum-question-card p {
-  color: #475569;
-  line-height: 1.7;
-}
-
-.forum-answer-box {
-  background-color: #f8fafc;
-  border-left: 4px solid #4f46e5;
-  padding: 16px;
-  border-radius: 12px;
-  margin: 18px 0;
-}
-
-.forum-answer-box h4 {
-  margin: 0 0 8px;
-  color: #0f172a;
-}
-
-.answer-form-box {
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 18px;
-  padding: 22px;
-  margin-top: 22px;
-}
-
-.answer-form-box h4 {
-  margin: 0 0 18px;
-  color: #0f172a;
-}
-
-@media (max-width: 650px) {
-  .forum-hero h1 {
-    font-size: 30px;
   }
 
   .question-create-box,
@@ -996,10 +1255,5 @@ footer {
   .forum-question-header {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .forum-submit-btn,
-  .answer-form button {
-    width: 100%;
   }
 }

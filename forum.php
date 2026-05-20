@@ -1,23 +1,45 @@
 <?php
+session_start();
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include("includes/db.php");
 include("includes/header.php");
 
+/* Giriş yapmayan kullanıcı forumu kullanamaz */
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php");
+    exit;
+}
+
+/* Ad Soyad bilgisini P. R. şeklinde gösterir */
+function getInitials($fullname) {
+    $words = explode(" ", trim($fullname));
+    $initials = "";
+
+    foreach ($words as $word) {
+        if (!empty($word)) {
+            $initials .= mb_strtoupper(mb_substr($word, 0, 1, "UTF-8"), "UTF-8") . ". ";
+        }
+    }
+
+    return trim($initials);
+}
+
 /* Soru ekleme */
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["question_submit"])) {
-    $name = trim($_POST["student_name"]);
+    $user_id = (int)$_SESSION["user_id"];
     $category = trim($_POST["category"]);
     $title = trim($_POST["question_title"]);
     $question = trim($_POST["question_text"]);
 
-    $stmt = mysqli_prepare($conn,
-        "INSERT INTO forum_questions (name, category, title, question)
-         VALUES (?, ?, ?, ?)"
-    );
+    $stmt = mysqli_prepare($conn, "
+        INSERT INTO forum_questions (user_id, category, title, question)
+        VALUES (?, ?, ?, ?)
+    ");
 
-    mysqli_stmt_bind_param($stmt, "ssss", $name, $category, $title, $question);
+    mysqli_stmt_bind_param($stmt, "isss", $user_id, $category, $title, $question);
     mysqli_stmt_execute($stmt);
 
     header("Location: forum.php");
@@ -26,24 +48,47 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["question_submit"])) {
 
 /* Cevap ekleme */
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["answer_submit"])) {
+
     $question_id = (int)$_POST["question_id"];
-    $answer_name = trim($_POST["answer_name"]);
+    $user_id = (int)$_SESSION["user_id"];
     $answer_text = trim($_POST["answer_text"]);
 
-    $answerStmt = mysqli_prepare($conn,
-        "INSERT INTO forum_answers (question_id, name, answer)
-         VALUES (?, ?, ?)"
-    );
+    if (!empty($answer_text)) {
 
-    mysqli_stmt_bind_param($answerStmt, "iss", $question_id, $answer_name, $answer_text);
-    mysqli_stmt_execute($answerStmt);
+        $answerStmt = mysqli_prepare(
+            $conn,
+            "INSERT INTO forum_answers (question_id, user_id, answer)
+             VALUES (?, ?, ?)"
+        );
 
-    header("Location: forum.php");
-    exit;
+        if (!$answerStmt) {
+            die("SQL Hatası: " . mysqli_error($conn));
+        }
+
+        mysqli_stmt_bind_param(
+            $answerStmt,
+            "iis",
+            $question_id,
+            $user_id,
+            $answer_text
+        );
+
+        if (!mysqli_stmt_execute($answerStmt)) {
+            die("Kayıt Hatası: " . mysqli_stmt_error($answerStmt));
+        }
+
+        header("Location: forum.php");
+        exit;
+    }
 }
 
-/* Soruları listeleme */
-$questions = mysqli_query($conn, "SELECT * FROM forum_questions ORDER BY id DESC");
+/* Soruları kullanıcı bilgisiyle getir */
+$questions = mysqli_query($conn, "
+    SELECT forum_questions.*, users.fullname
+    FROM forum_questions
+    INNER JOIN users ON forum_questions.user_id = users.id
+    ORDER BY forum_questions.id DESC
+");
 ?>
 
 <main class="forum-page">
@@ -63,10 +108,6 @@ $questions = mysqli_query($conn, "SELECT * FROM forum_questions ORDER BY id DESC
       <p>Merak ettiğin konuyu sor, diğer öğrenciler deneyimlerini paylaşsın.</p>
 
       <form class="forum-form" method="POST" action="forum.php">
-        <div class="form-group">
-          <label for="student-name">Adınız</label>
-          <input type="text" id="student-name" name="student_name" placeholder="Adınızı yazın" required>
-        </div>
 
         <div class="form-group">
           <label for="question-category">Kategori</label>
@@ -81,12 +122,24 @@ $questions = mysqli_query($conn, "SELECT * FROM forum_questions ORDER BY id DESC
 
         <div class="form-group">
           <label for="question-title">Soru Başlığı</label>
-          <input type="text" id="question-title" name="question_title" placeholder="Örn: Kampüs hayatı nasıl?" required>
+          <input
+            type="text"
+            id="question-title"
+            name="question_title"
+            placeholder="Örn: Kampüs hayatı nasıl?"
+            required
+          >
         </div>
 
         <div class="form-group">
           <label for="question-text">Sorunuz</label>
-          <textarea id="question-text" name="question_text" rows="5" placeholder="Sorunuzu detaylı yazın..." required></textarea>
+          <textarea
+            id="question-text"
+            name="question_text"
+            rows="5"
+            placeholder="Sorunuzu detaylı yazın..."
+            required
+          ></textarea>
         </div>
 
         <button type="submit" name="question_submit" class="forum-submit-btn">
@@ -102,13 +155,14 @@ $questions = mysqli_query($conn, "SELECT * FROM forum_questions ORDER BY id DESC
         <?php while($row = mysqli_fetch_assoc($questions)): ?>
 
           <article class="forum-question-card">
+
             <header class="forum-question-header">
               <span class="forum-tag">
                 <?php echo htmlspecialchars($row['category']); ?>
               </span>
 
               <small>
-                <?php echo htmlspecialchars($row['name']); ?> tarafından soruldu
+                <?php echo htmlspecialchars(getInitials($row['fullname'])); ?> tarafından soruldu
               </small>
             </header>
 
@@ -124,10 +178,13 @@ $questions = mysqli_query($conn, "SELECT * FROM forum_questions ORDER BY id DESC
               <?php
               $questionId = (int)$row['id'];
 
-              $answersStmt = mysqli_prepare(
-                  $conn,
-                  "SELECT * FROM forum_answers WHERE question_id = ? ORDER BY created_at DESC"
-              );
+              $answersStmt = mysqli_prepare($conn, "
+                  SELECT forum_answers.*, users.fullname
+                  FROM forum_answers
+                  INNER JOIN users ON forum_answers.user_id = users.id
+                  WHERE forum_answers.question_id = ?
+                  ORDER BY forum_answers.created_at DESC
+              ");
 
               mysqli_stmt_bind_param($answersStmt, "i", $questionId);
               mysqli_stmt_execute($answersStmt);
@@ -137,7 +194,7 @@ $questions = mysqli_query($conn, "SELECT * FROM forum_questions ORDER BY id DESC
               <?php if ($answersResult && mysqli_num_rows($answersResult) > 0): ?>
                 <?php while($answer = mysqli_fetch_assoc($answersResult)): ?>
                   <p>
-                    <strong><?php echo htmlspecialchars($answer['name']); ?>:</strong>
+                    <strong><?php echo htmlspecialchars(getInitials($answer['fullname'])); ?>:</strong>
                     <?php echo htmlspecialchars($answer['answer']); ?>
                   </p>
                 <?php endwhile; ?>
@@ -150,18 +207,11 @@ $questions = mysqli_query($conn, "SELECT * FROM forum_questions ORDER BY id DESC
               <h4>Cevap Yaz</h4>
 
               <form class="answer-form" method="POST" action="forum.php">
-                <input type="hidden" name="question_id" value="<?php echo (int)$row['id']; ?>">
-
-                <div class="form-group">
-                  <label for="answer-name-<?php echo (int)$row['id']; ?>">Adınız</label>
-                  <input
-                    type="text"
-                    id="answer-name-<?php echo (int)$row['id']; ?>"
-                    name="answer_name"
-                    placeholder="Adınızı yazın"
-                    required
-                  >
-                </div>
+                <input
+                  type="hidden"
+                  name="question_id"
+                  value="<?php echo (int)$row['id']; ?>"
+                >
 
                 <div class="form-group">
                   <label for="answer-text-<?php echo (int)$row['id']; ?>">Cevabınız</label>
@@ -174,12 +224,16 @@ $questions = mysqli_query($conn, "SELECT * FROM forum_questions ORDER BY id DESC
                   ></textarea>
                 </div>
 
-                <button type="submit" name="answer_submit">Cevapla</button>
+                <button type="submit" name="answer_submit">
+                  Cevapla
+                </button>
               </form>
             </div>
+
           </article>
 
         <?php endwhile; ?>
+
       <?php else: ?>
 
         <article class="forum-question-card">

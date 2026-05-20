@@ -5,14 +5,14 @@ ini_set('display_errors', 1);
 include("includes/header.php");
 include("includes/db.php");
 
-/* Arama ve şehir filtre değerleri */
+/* Arama ve filtre değerleri */
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $city = isset($_GET['city']) ? trim($_GET['city']) : '';
 
-/* Şehirleri listeleme */
+/* Şehirleri getir */
 $citiesResult = mysqli_query($conn, "SELECT DISTINCT city FROM universities ORDER BY city ASC");
 
-/* Üniversite arama sorgusu */
+/* Üniversiteleri filtreli getir */
 $sql = "SELECT * FROM universities WHERE 1=1";
 $params = [];
 $types = "";
@@ -38,101 +38,81 @@ if (!empty($params)) {
 }
 
 mysqli_stmt_execute($stmt);
-$universitiesResult = mysqli_stmt_get_result($stmt);
+$result = mysqli_stmt_get_result($stmt);
 ?>
 
-<main class="discover-page">
+<main class="universities-page">
 
-  <!-- En üst arama alanı -->
-  <section class="top-search-section" aria-label="Üniversite arama alanı">
-    <form class="top-search-form" method="GET" action="kesfet.php">
-      <label for="search">Üniversite Ara</label>
+  <section class="page-hero">
+    <h2>Üniversiteler</h2>
+    <p>Üniversite adı arayabilir veya şehir seçerek filtreleme yapabilirsin.</p>
+  </section>
 
-      <div class="top-search-row">
+  <section class="filter-section">
+    <form method="GET" action="universities.php" class="filter-form">
+
+      <div>
+        <label for="search">Üniversite Ara</label>
         <input
           type="text"
           id="search"
           name="search"
+          placeholder="Okul adını yaz..."
           value="<?php echo htmlspecialchars($search); ?>"
-          placeholder="Okul adını yazın..."
         >
-
-        <button type="submit">Ara</button>
       </div>
-    </form>
-  </section>
 
-  <!-- Sayfa başlığı -->
-  <section class="discover-hero">
-    <h1>Üniversiteleri Keşfet</h1>
-    <p>Okul adı veya şehir seçimi ile üniversiteleri kolayca bul.</p>
-  </section>
-
-  <!-- Şehir filtreleme alanı -->
-  <section class="search-section" aria-label="Şehir filtreleme alanı">
-    <form class="search-form" method="GET" action="kesfet.php">
-
-      <input type="hidden" name="search" value="<?php echo htmlspecialchars($search); ?>">
-
-      <div class="form-control">
+      <div>
         <label for="city">Şehir Seç</label>
-        <select id="city" name="city">
+        <select name="city" id="city">
           <option value="">Tüm Şehirler</option>
 
           <?php while($cityRow = mysqli_fetch_assoc($citiesResult)): ?>
-            <option value="<?php echo htmlspecialchars($cityRow['city']); ?>"
-              <?php echo ($city === $cityRow['city']) ? 'selected' : ''; ?>>
+            <option
+              value="<?php echo htmlspecialchars($cityRow['city']); ?>"
+              <?php echo ($city === $cityRow['city']) ? 'selected' : ''; ?>
+            >
               <?php echo htmlspecialchars($cityRow['city']); ?>
             </option>
           <?php endwhile; ?>
-
         </select>
       </div>
 
-      <button type="submit" class="search-button">Filtrele</button>
-      <a href="kesfet.php" class="clear-button">Temizle</a>
+      <button type="submit">Filtrele</button>
+      <a href="universities.php" class="clear-button">Temizle</a>
+
     </form>
   </section>
 
-  <!-- Üniversite sonuçları -->
-  <section class="results-section" aria-label="Üniversite sonuçları">
-    <div class="section-title">
-      <h2>Sonuçlar</h2>
-      <p><?php echo mysqli_num_rows($universitiesResult); ?> üniversite listelendi.</p>
-    </div>
+  <section class="university-list">
 
-    <div class="university-grid">
-      <?php if (mysqli_num_rows($universitiesResult) > 0): ?>
+    <?php if ($result && mysqli_num_rows($result) > 0): ?>
 
-        <?php while($row = mysqli_fetch_assoc($universitiesResult)): ?>
-          <article class="university-card">
-            <div class="university-card-header">
-              <span class="university-type">
-                <?php echo htmlspecialchars($row['type']); ?>
-              </span>
+      <?php while($row = mysqli_fetch_assoc($result)): ?>
 
-              <span class="university-city">
-                <?php echo htmlspecialchars($row['city']); ?>
-              </span>
-            </div>
-
+        <article class="university-card">
+          <div class="card-content">
             <h3><?php echo htmlspecialchars($row['name']); ?></h3>
 
+            <p><strong>Şehir:</strong> <?php echo htmlspecialchars($row['city']); ?></p>
+            <p><strong>Ülke:</strong> <?php echo htmlspecialchars($row['country']); ?></p>
+            <p><strong>Tür:</strong> <?php echo htmlspecialchars($row['type']); ?></p>
             <p><?php echo htmlspecialchars($row['description']); ?></p>
 
             <a href="detail.php?id=<?php echo (int)$row['id']; ?>" class="detail-btn">
               İncele
             </a>
-          </article>
-        <?php endwhile; ?>
-
-      <?php else: ?>
-        <article class="empty-result">
-          <h3>Sonuç bulunamadı</h3>
-          <p>Arama kelimesini değiştirerek veya şehir filtresini temizleyerek tekrar deneyebilirsin.</p>
+          </div>
         </article>
-      <?php endif; ?>
-    </div>
+
+      <?php endwhile; ?>
+
+    <?php else: ?>
+
+      <p class="no-result">Aramana uygun üniversite bulunamadı.</p>
+
+    <?php endif; ?>
+
   </section>
 
 </main>

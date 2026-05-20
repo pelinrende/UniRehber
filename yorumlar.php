@@ -5,6 +5,20 @@ ini_set('display_errors', 1);
 include("includes/header.php");
 include("includes/db.php");
 
+/* Kullanıcı adını baş harf olarak gösterir */
+function getInitials($fullname) {
+    $words = explode(" ", trim($fullname));
+    $initials = "";
+
+    foreach ($words as $word) {
+        if (!empty($word)) {
+            $initials .= mb_strtoupper(mb_substr($word, 0, 1, "UTF-8"), "UTF-8") . ". ";
+        }
+    }
+
+    return trim($initials);
+}
+
 /* Yorum istatistikleri */
 $totalCommentsQuery = mysqli_query($conn, "SELECT COUNT(*) AS total FROM comments");
 $totalComments = mysqli_fetch_assoc($totalCommentsQuery)['total'] ?? 0;
@@ -15,18 +29,20 @@ $avgRating = mysqli_fetch_assoc($avgRatingQuery)['average_rating'] ?? 0;
 $commentedUniQuery = mysqli_query($conn, "SELECT COUNT(DISTINCT university_id) AS total FROM comments");
 $commentedUni = mysqli_fetch_assoc($commentedUniQuery)['total'] ?? 0;
 
-/* Tüm yorumları getir */
+/* Tüm yorumları kullanıcı bilgisiyle getir */
 $commentsQuery = "
   SELECT 
-    comments.user_name,
+    comments.id,
     comments.department,
     comments.rating,
     comments.comment,
     comments.created_at,
     universities.name AS university_name,
-    universities.city AS university_city
+    universities.city AS university_city,
+    users.fullname
   FROM comments
   INNER JOIN universities ON comments.university_id = universities.id
+  INNER JOIN users ON comments.user_id = users.id
   ORDER BY comments.created_at DESC
 ";
 
@@ -62,8 +78,11 @@ $commentsResult = mysqli_query($conn, $commentsQuery);
   </section>
 
   <section class="reviews-list" aria-label="Öğrenci yorumları">
+
     <?php if ($commentsResult && mysqli_num_rows($commentsResult) > 0): ?>
+
       <?php while($row = mysqli_fetch_assoc($commentsResult)): ?>
+
         <article class="review-card">
           <header class="review-card-header">
             <div>
@@ -82,8 +101,13 @@ $commentsResult = mysqli_query($conn, $commentsQuery);
 
           <footer class="review-footer">
             <div>
-              <strong><?php echo htmlspecialchars($row['user_name']); ?></strong>
-              <span><?php echo htmlspecialchars($row['department'] ?: 'Bölüm belirtilmemiş'); ?></span>
+              <strong>
+                <?php echo htmlspecialchars(getInitials($row['fullname'])); ?>
+              </strong>
+
+              <span>
+                <?php echo htmlspecialchars($row['department'] ?: 'Bölüm belirtilmemiş'); ?>
+              </span>
             </div>
 
             <time datetime="<?php echo htmlspecialchars($row['created_at']); ?>">
@@ -91,14 +115,19 @@ $commentsResult = mysqli_query($conn, $commentsQuery);
             </time>
           </footer>
         </article>
+
       <?php endwhile; ?>
+
     <?php else: ?>
+
       <article class="no-review-card">
         <h2>Henüz yorum yok</h2>
         <p>İlk yorumu bir üniversite detay sayfasından sen ekleyebilirsin.</p>
         <a href="universities.php">Üniversitelere Git</a>
       </article>
+
     <?php endif; ?>
+
   </section>
 
 </main>

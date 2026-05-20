@@ -1,4 +1,12 @@
-<?php include("includes/header.php"); ?>
+<?php
+include("includes/header.php");
+
+$message = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $message = "Mesajınız alındı. Mail gönderme sistemi daha sonra bağlanacaktır.";
+}
+?>
 
 <main class="contact-page">
   <section class="contact-hero">
@@ -15,14 +23,18 @@
 
       <div class="contact-box">
         <h4>Neden yazmalısın?</h4>
-        <p>
-          Üniversiteler, yorumlar, öneriler veya iş birliği için bizimle iletişime geçebilirsin.
-        </p>
+        <p>Üniversiteler, yorumlar, öneriler veya iş birliği için bizimle iletişime geçebilirsin.</p>
       </div>
     </div>
 
     <div class="contact-form-area">
-      <form class="contact-form" action="#" method="post">
+      <?php if (!empty($message)): ?>
+        <div class="success-message">
+          <?php echo htmlspecialchars($message); ?>
+        </div>
+      <?php endif; ?>
+
+      <form class="contact-form" method="POST" action="contact.php">
         <div class="form-group">
           <label for="name">Ad Soyad</label>
           <input type="text" id="name" name="name" placeholder="Adınızı girin" required>
