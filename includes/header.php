@@ -49,7 +49,7 @@ function showInitials($fullname) {
   <title>UniRotası</title>
 
   <!-- CSS dosyasını projeye bağlar -->
-  <link rel="stylesheet" href="/unirehber/css/style.css?v=101">
+  <link rel="stylesheet" href="/unirehber/css/style.css?v=103">
 
 </head>
 
@@ -136,11 +136,18 @@ function showInitials($fullname) {
       <li>
 
         <!-- Admin panel linki -->
-        <a href="/unirehber/admin/dashboard.php" class="nav-button">
+        <?php if (
+    isset($_SESSION["user_role"]) &&
+    $_SESSION["user_role"] === "admin"
+): ?>
 
-          Admin
+    <a href="/unirehber/admin/dashboard.php" class="nav-button">
 
-        </a>
+        Admin
+
+    </a>
+
+<?php endif; ?>
 
       </li>
 

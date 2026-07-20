@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <section class="contact-container">
     <div class="contact-info">
       <h3>Bize Ulaş</h3>
-      <p><strong>E-posta:</strong> info@unirehber.com</p>
+      <p><strong>E-posta:</strong> Pelinrende05@gmail.com</p>
       <p><strong>Telefon:</strong> +90 534 365 62 22</p>
       <p><strong>Adres:</strong> İstanbul, Türkiye</p>
 

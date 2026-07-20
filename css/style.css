@@ -1,6 +1,4 @@
-/* =========================
-   GENEL SAYFA AYARLARI
-   ========================= */
+/* GENEL SAYFA AYARLARI */
 
 * {
   box-sizing: border-box;
@@ -35,9 +33,7 @@ img {
   display: block;
 }
 
-/* =========================
-   NAVBAR
-   ========================= */
+/* NAVBAR*/
 
 .site-header {
   position: sticky;
@@ -724,225 +720,1362 @@ img {
 /* =========================
    YORUMLAR SAYFASI
    ========================= */
+/* ==================================================
+   UNİROTASI YORUMLAR SAYFASI
+   ================================================== */
 
-.reviews-page {
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at top left, rgba(79, 70, 229, 0.12), transparent 30%),
-    #f8fafc;
+.ur-reviews-page {
+    min-height: 100vh;
+    padding: 34px 20px 85px;
+    background:
+        radial-gradient(
+            circle at 8% 8%,
+            rgba(79, 70, 229, 0.1),
+            transparent 30%
+        ),
+        linear-gradient(
+            180deg,
+            #f5f7fc 0%,
+            #f9fafc 100%
+        );
+    color: #172033;
 }
 
-.reviews-hero {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 60px 24px 28px;
-  text-align: center;
+/* ==================================================
+   ÜST TANITIM ALANI
+   ================================================== */
+
+.ur-reviews-hero {
+    display: flex;
+    max-width: 1180px;
+    min-height: 225px;
+    margin: 0 auto;
+    padding: 42px 46px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+    overflow: hidden;
+    border: 1px solid rgba(89, 76, 232, 0.13);
+    border-radius: 28px;
+    background:
+        radial-gradient(
+            circle at 92% 20%,
+            rgba(255, 255, 255, 0.22),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #4f46e5,
+            #6758e7
+        );
+    box-shadow: 0 24px 55px rgba(58, 48, 154, 0.18);
 }
 
-.reviews-label {
-  display: inline-block;
-  margin-bottom: 14px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background-color: #eef2ff;
-  color: #4f46e5;
-  font-weight: 700;
-  font-size: 14px;
+.ur-reviews-hero-content {
+    max-width: 680px;
 }
 
-.reviews-hero h1 {
-  margin: 0 0 14px;
-  font-size: 42px;
-  color: #0f172a;
+.ur-reviews-label {
+    display: inline-flex;
+    margin-bottom: 14px;
+    padding: 8px 13px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    backdrop-filter: blur(8px);
 }
 
-.reviews-hero p {
-  color: #475569;
-  font-size: 18px;
-  line-height: 1.8;
+.ur-reviews-hero h1 {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(2rem, 4vw, 3.45rem);
+    line-height: 1.1;
+    letter-spacing: -0.045em;
 }
 
-.reviews-stats {
-  max-width: 1000px;
-  margin: 10px auto 35px;
-  padding: 0 24px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+.ur-reviews-hero p {
+    max-width: 620px;
+    margin: 16px 0 0;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1rem;
+    line-height: 1.75;
 }
 
-.review-stat-card,
-.review-card,
-.no-review-card {
-  background-color: #ffffff;
-  border-radius: 22px;
-  padding: 26px;
-  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
-  border: 1px solid #eef2ff;
+.ur-reviews-hero-actions {
+    display: flex;
+    flex-shrink: 0;
+    gap: 12px;
 }
 
-.review-stat-card {
-  text-align: center;
+.ur-primary-button,
+.ur-secondary-button,
+.ur-add-review-button {
+    display: inline-flex;
+    min-height: 46px;
+    padding: 11px 19px;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
 }
 
-.review-stat-card strong {
-  display: block;
-  font-size: 34px;
-  color: #4f46e5;
-  margin-bottom: 8px;
+.ur-primary-button {
+    background: #ffffff;
+    color: #4f46e5;
+    box-shadow: 0 12px 25px rgba(31, 24, 108, 0.17);
 }
 
-.review-stat-card span {
-  color: #64748b;
-  font-weight: 700;
+.ur-primary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(31, 24, 108, 0.23);
 }
 
-.reviews-list {
-  max-width: 950px;
-  margin: 0 auto 80px;
-  padding: 0 24px;
-  display: grid;
-  gap: 22px;
+.ur-secondary-button {
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
 }
 
-.review-card-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  align-items: flex-start;
-  margin-bottom: 18px;
+.ur-secondary-button:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.review-card-header h2 {
-  margin: 0 0 6px;
-  color: #0f172a;
-  font-size: 22px;
+/* ==================================================
+   İSTATİSTİK KARTLARI
+   ================================================== */
+
+.ur-reviews-stats {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    max-width: 1030px;
+    margin: -27px auto 0;
+    padding: 0 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
 }
 
-.review-rating {
-  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
-  color: #ffffff;
-  padding: 9px 13px;
-  border-radius: 999px;
-  font-weight: 800;
-  white-space: nowrap;
+.ur-stat-card {
+    display: flex;
+    min-width: 0;
+    padding: 19px 21px;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid #e6e8f0;
+    border-radius: 17px;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 14px 35px rgba(30, 34, 58, 0.09);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.review-text {
-  font-size: 17px;
-  line-height: 1.8;
-  color: #334155;
+.ur-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 19px 40px rgba(30, 34, 58, 0.13);
 }
 
-.review-footer {
-  border-top: 1px solid #e2e8f0;
-  padding-top: 16px;
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  align-items: center;
-  color: #64748b;
+.ur-stat-icon {
+    display: grid;
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    border-radius: 14px;
+    background: #eeecff;
+    font-size: 1.25rem;
+}
+
+.ur-stat-card > div {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+}
+
+.ur-stat-card strong {
+    color: #242c40;
+    font-size: 1.45rem;
+    line-height: 1.05;
+}
+
+.ur-stat-card div span {
+    margin-top: 5px;
+    color: #7d8497;
+    font-size: 0.82rem;
+}
+
+/* ==================================================
+   YORUMLAR İÇERİĞİ
+   ================================================== */
+
+.ur-reviews-content {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding-top: 72px;
+}
+
+.ur-reviews-heading {
+    display: flex;
+    margin-bottom: 25px;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.ur-heading-label {
+    display: block;
+    margin-bottom: 7px;
+    color: #5549db;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+
+.ur-reviews-heading h2 {
+    margin: 0;
+    color: #1f293d;
+    font-size: clamp(1.65rem, 3vw, 2.3rem);
+    letter-spacing: -0.035em;
+}
+
+.ur-reviews-heading p {
+    margin: 8px 0 0;
+    color: #7b8293;
+    line-height: 1.6;
+}
+
+.ur-add-review-button {
+    flex-shrink: 0;
+    background: #4f46e5;
+    color: #ffffff;
+    box-shadow: 0 10px 22px rgba(79, 70, 229, 0.2);
+}
+
+.ur-add-review-button:hover {
+    transform: translateY(-2px);
+    background: #4338ca;
+    box-shadow: 0 14px 26px rgba(79, 70, 229, 0.27);
+}
+
+/* ==================================================
+   YORUM KARTLARI
+   ================================================== */
+
+.ur-reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 22px;
+}
+
+.ur-review-card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    height: 100%;
+    padding: 24px;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #e4e7ef;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 12px 32px rgba(29, 35, 56, 0.07);
+    transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.ur-review-card::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(
+        90deg,
+        #4f46e5,
+        #9387f1
+    );
+    content: "";
+}
+
+.ur-review-card:hover {
+    transform: translateY(-5px);
+    border-color: #d1ccf7;
+    box-shadow: 0 20px 42px rgba(29, 35, 56, 0.12);
+}
+
+.ur-review-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.ur-university-area {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 12px;
+}
+
+.ur-university-icon {
+    display: grid;
+    flex: 0 0 47px;
+    width: 47px;
+    height: 47px;
+    place-items: center;
+    border-radius: 14px;
+    background: #efedff;
+    font-size: 1.22rem;
+}
+
+.ur-university-area > div {
+    min-width: 0;
+}
+
+.ur-university-area h3 {
+    margin: 0;
+    color: #222b40;
+    font-size: 1rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+.ur-university-city {
+    display: block;
+    margin-top: 5px;
+    color: #858c9c;
+    font-size: 0.78rem;
+}
+
+.ur-rating-number {
+    flex-shrink: 0;
+    padding: 7px 10px;
+    border-radius: 9px;
+    background: #fff5d7;
+    color: #8e6800;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.ur-review-stars {
+    display: flex;
+    margin-top: 17px;
+    gap: 3px;
+    font-size: 1.05rem;
+}
+
+.ur-star-active {
+    color: #f7b928;
+}
+
+.ur-star-empty {
+    color: #d9dce5;
+}
+
+.ur-review-message {
+    position: relative;
+    flex: 1;
+    min-height: 125px;
+    margin-top: 15px;
+    padding: 24px 18px 18px;
+    border-radius: 15px;
+    background: #f7f8fc;
+}
+
+.ur-quote-mark {
+    position: absolute;
+    top: 1px;
+    left: 12px;
+    color: rgba(79, 70, 229, 0.2);
+    font-family: Georgia, serif;
+    font-size: 3.5rem;
+    line-height: 1;
+}
+
+.ur-review-message p {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    color: #4d5569;
+    font-size: 0.91rem;
+    line-height: 1.75;
+    overflow-wrap: anywhere;
+}
+
+.ur-department {
+    display: flex;
+    margin-top: 14px;
+    padding: 10px 12px;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #e9eaf1;
+    border-radius: 11px;
+    background: #ffffff;
+}
+
+.ur-department p {
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    color: #5f6678;
+    font-size: 0.79rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ur-review-card-bottom {
+    display: flex;
+    margin-top: 18px;
+    padding-top: 17px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-top: 1px solid #eceef3;
+}
+
+.ur-review-user {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 10px;
+}
+
+.ur-review-avatar {
+    display: grid;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(
+        135deg,
+        #4f46e5,
+        #7d6bea
+    );
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    box-shadow: 0 8px 18px rgba(79, 70, 229, 0.22);
+}
+
+.ur-review-user > div {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+}
+
+.ur-review-user strong {
+    color: #30384c;
+    font-size: 0.83rem;
+}
+
+.ur-review-user div span {
+    margin-top: 2px;
+    color: #9499a7;
+    font-size: 0.7rem;
+}
+
+.ur-review-date {
+    flex-shrink: 0;
+    color: #9298a7;
+    font-size: 0.73rem;
+}
+
+/* ==================================================
+   YORUM YOKSA
+   ================================================== */
+
+.ur-empty-reviews {
+    grid-column: 1 / -1;
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 55px 25px;
+    border: 1px dashed #cfcaf4;
+    border-radius: 21px;
+    background: #ffffff;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(29, 35, 56, 0.06);
+}
+
+.ur-empty-icon {
+    display: grid;
+    width: 66px;
+    height: 66px;
+    margin: 0 auto 17px;
+    place-items: center;
+    border-radius: 50%;
+    background: #efedff;
+    font-size: 1.75rem;
+}
+
+.ur-empty-reviews h2 {
+    margin: 0;
+    color: #263046;
+}
+
+.ur-empty-reviews p {
+    max-width: 480px;
+    margin: 12px auto 23px;
+    color: #7d8495;
+    line-height: 1.7;
+}
+
+.ur-empty-reviews .ur-primary-button {
+    background: #4f46e5;
+    color: #ffffff;
+}
+
+/* ==================================================
+   GENİŞ EKRANLAR
+   ================================================== */
+
+@media (min-width: 1250px) {
+
+    .ur-reviews-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* ==================================================
+   TABLET
+   ================================================== */
+
+@media (max-width: 900px) {
+
+    .ur-reviews-hero {
+        padding: 38px 32px;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .ur-reviews-hero-actions {
+        width: 100%;
+    }
+
+    .ur-reviews-stats {
+        max-width: 760px;
+    }
+
+    .ur-stat-card {
+        padding: 17px;
+    }
+
+    .ur-reviews-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* ==================================================
+   MOBİL
+   ================================================== */
+
+@media (max-width: 680px) {
+
+    .ur-reviews-page {
+        padding: 18px 14px 65px;
+    }
+
+    .ur-reviews-hero {
+        min-height: auto;
+        padding: 32px 22px;
+        border-radius: 21px;
+    }
+
+    .ur-reviews-hero h1 {
+        font-size: 2.15rem;
+    }
+
+    .ur-reviews-hero-actions {
+        flex-direction: column;
+    }
+
+    .ur-primary-button,
+    .ur-secondary-button {
+        width: 100%;
+    }
+
+    .ur-reviews-stats {
+        margin-top: 15px;
+        padding: 0;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .ur-stat-card {
+        padding: 15px 17px;
+    }
+
+    .ur-stat-icon {
+        flex-basis: 43px;
+        width: 43px;
+        height: 43px;
+    }
+
+    .ur-reviews-content {
+        padding-top: 52px;
+    }
+
+    .ur-reviews-heading {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .ur-add-review-button {
+        width: 100%;
+    }
+
+    .ur-reviews-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ur-review-card {
+        padding: 20px;
+    }
+}
+
+/* ==================================================
+   KÜÇÜK TELEFONLAR
+   ================================================== */
+
+@media (max-width: 410px) {
+
+    .ur-review-card-top {
+        flex-direction: column;
+    }
+
+    .ur-rating-number {
+        align-self: flex-start;
+    }
+
+    .ur-review-card-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .ur-review-date {
+        padding-left: 50px;
+    }
 }
 
 /* =========================
    FORUM SAYFASI
    ========================= */
+/* ==================================================
+   UNİROTASI FORUM SAYFASI
+   ================================================== */
 
-.forum-main-container {
-  max-width: 950px;
-  margin: 35px auto 70px;
-  padding: 0 20px;
+.ur-forum-page {
+    min-height: 100vh;
+    padding: 34px 20px 85px;
+    background:
+        radial-gradient(
+            circle at 8% 7%,
+            rgba(79, 70, 229, 0.1),
+            transparent 29%
+        ),
+        linear-gradient(
+            180deg,
+            #f5f7fc 0%,
+            #f9fafc 100%
+        );
+    color: #172033;
 }
 
-.question-create-box,
-.forum-question-card {
-  background-color: #ffffff;
-  padding: 30px;
-  border-radius: 22px;
-  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
-  border: 1px solid #eef2ff;
+/* ==================================================
+   FORUM HERO ALANI
+   ================================================== */
+
+.ur-forum-hero {
+    display: flex;
+    max-width: 1180px;
+    min-height: 225px;
+    margin: 0 auto;
+    padding: 42px 46px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+    overflow: hidden;
+    border: 1px solid rgba(89, 76, 232, 0.13);
+    border-radius: 28px;
+    background:
+        radial-gradient(
+            circle at 92% 20%,
+            rgba(255, 255, 255, 0.22),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #4f46e5,
+            #6758e7
+        );
+    box-shadow: 0 24px 55px rgba(58, 48, 154, 0.18);
 }
 
-.question-create-box {
-  margin-bottom: 35px;
+.ur-forum-hero-content {
+    max-width: 680px;
 }
 
-.question-create-box h2,
-.forum-questions h2 {
-  color: #0f172a;
-  margin-top: 0;
+.ur-forum-label {
+    display: inline-flex;
+    margin-bottom: 14px;
+    padding: 8px 13px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    backdrop-filter: blur(8px);
 }
 
-.question-create-box p {
-  color: #64748b;
+.ur-forum-hero h1 {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(2rem, 4vw, 3.45rem);
+    line-height: 1.1;
+    letter-spacing: -0.045em;
 }
 
-.forum-question-card {
-  margin-bottom: 24px;
+.ur-forum-hero-content > p {
+    max-width: 650px;
+    margin: 16px 0 0;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1rem;
+    line-height: 1.75;
 }
 
-.forum-question-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  align-items: center;
-  margin-bottom: 14px;
+.ur-forum-hero-info {
+    display: flex;
+    flex: 0 0 310px;
+    padding: 20px;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.13);
+    color: #ffffff;
+    backdrop-filter: blur(10px);
 }
 
-.forum-tag {
-  display: inline-block;
-  background-color: #eef2ff;
-  color: #4f46e5;
-  padding: 7px 13px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
+.ur-forum-hero-icon {
+    display: grid;
+    flex: 0 0 55px;
+    width: 55px;
+    height: 55px;
+    place-items: center;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 1.5rem;
 }
 
-.forum-form label,
-.answer-form label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 700;
-  color: #334155;
+.ur-forum-hero-info > div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.forum-form input,
-.forum-form select,
-.forum-form textarea,
-.answer-form textarea {
-  width: 100%;
-  padding: 13px 14px;
-  border: 1px solid #cbd5e1;
-  border-radius: 12px;
-  font-size: 15px;
+.ur-forum-hero-info strong {
+    font-size: 0.97rem;
 }
 
-.forum-submit-btn,
-.answer-form button {
-  border: none;
-  background: linear-gradient(135deg, #4f46e5, #8b5cf6);
-  color: white;
-  padding: 13px 18px;
-  border-radius: 12px;
-  font-weight: 700;
-  cursor: pointer;
+.ur-forum-hero-info span {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.79rem;
+    line-height: 1.5;
 }
 
-.forum-answer-box {
-  background-color: #f8fafc;
-  border-left: 4px solid #4f46e5;
-  padding: 16px;
-  border-radius: 12px;
-  margin: 18px 0;
+/* ==================================================
+   ANA İÇERİK DÜZENİ
+   ================================================== */
+
+.ur-forum-container {
+    display: grid;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding-top: 65px;
+    grid-template-columns: 350px minmax(0, 1fr);
+    align-items: start;
+    gap: 28px;
 }
 
-.answer-form-box {
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 18px;
-  padding: 22px;
-  margin-top: 22px;
+/* ==================================================
+   SORU OLUŞTURMA FORMU
+   ================================================== */
+
+.ur-question-create-card {
+    position: sticky;
+    top: 95px;
+    padding: 25px;
+    border: 1px solid #e4e7ef;
+    border-radius: 21px;
+    background: #ffffff;
+    box-shadow: 0 14px 35px rgba(29, 35, 56, 0.08);
+}
+
+.ur-question-create-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+}
+
+.ur-question-create-icon {
+    display: grid;
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border-radius: 14px;
+    background: #eeecff;
+    font-size: 1.2rem;
+}
+
+.ur-question-create-heading h2 {
+    margin: 0;
+    color: #222b40;
+    font-size: 1.23rem;
+}
+
+.ur-question-create-heading p {
+    margin: 6px 0 0;
+    color: #7d8495;
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+.ur-forum-form {
+    display: flex;
+    margin-top: 24px;
+    flex-direction: column;
+    gap: 17px;
+}
+
+.ur-forum-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.ur-forum-form-group label {
+    color: #3d4558;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.ur-forum-form-group input,
+.ur-forum-form-group select,
+.ur-forum-form-group textarea {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #dfe2eb;
+    border-radius: 11px;
+    outline: none;
+    background: #fbfbfd;
+    color: #30384c;
+    font: inherit;
+    font-size: 0.87rem;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.ur-forum-form-group textarea {
+    min-height: 115px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.ur-forum-form-group input:focus,
+.ur-forum-form-group select:focus,
+.ur-forum-form-group textarea:focus {
+    border-color: #7468eb;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+.ur-forum-submit-button,
+.ur-answer-submit-button {
+    display: inline-flex;
+    min-height: 46px;
+    padding: 11px 18px;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 0;
+    border-radius: 12px;
+    background: #4f46e5;
+    color: #ffffff;
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(79, 70, 229, 0.21);
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.ur-forum-submit-button {
+    width: 100%;
+}
+
+.ur-forum-submit-button:hover,
+.ur-answer-submit-button:hover {
+    transform: translateY(-2px);
+    background: #4338ca;
+    box-shadow: 0 14px 26px rgba(79, 70, 229, 0.28);
+}
+
+.ur-forum-tip {
+    display: flex;
+    margin-top: 19px;
+    padding: 12px;
+    align-items: flex-start;
+    gap: 9px;
+    border-radius: 11px;
+    background: #f5f4ff;
+}
+
+.ur-forum-tip p {
+    margin: 0;
+    color: #696f81;
+    font-size: 0.75rem;
+    line-height: 1.55;
+}
+
+/* ==================================================
+   SORULAR BAŞLIĞI
+   ================================================== */
+
+.ur-forum-questions {
+    min-width: 0;
+}
+
+.ur-forum-section-heading {
+    display: flex;
+    margin-bottom: 24px;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.ur-forum-section-label {
+    display: block;
+    margin-bottom: 7px;
+    color: #5549db;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+
+.ur-forum-section-heading h2 {
+    margin: 0;
+    color: #1f293d;
+    font-size: clamp(1.65rem, 3vw, 2.2rem);
+    letter-spacing: -0.035em;
+}
+
+.ur-forum-section-heading p {
+    margin: 8px 0 0;
+    color: #7b8293;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.ur-forum-question-count {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: #ece9ff;
+    color: #5549db;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+/* ==================================================
+   SORU KARTLARI
+   ================================================== */
+
+.ur-forum-question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 20px;
+}
+
+.ur-forum-question-card {
+    position: relative;
+    min-width: 0;
+    padding: 22px;
+    overflow: hidden;
+    border: 1px solid #e4e7ef;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 12px 30px rgba(29, 35, 56, 0.07);
+    transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.ur-forum-question-card::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(
+        90deg,
+        #4f46e5,
+        #9387f1
+    );
+    content: "";
+}
+
+.ur-forum-question-card:hover {
+    transform: translateY(-4px);
+    border-color: #d1ccf7;
+    box-shadow: 0 19px 40px rgba(29, 35, 56, 0.11);
+}
+
+.ur-forum-question-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.ur-forum-category {
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: #ece9ff;
+    color: #5549db;
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+
+.ur-forum-author {
+    color: #8c92a1;
+    font-size: 0.73rem;
+}
+
+.ur-forum-question-card > h3 {
+    margin: 18px 0 0;
+    color: #222b40;
+    font-size: 1.04rem;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.ur-forum-question-text {
+    position: relative;
+    min-height: 110px;
+    margin-top: 14px;
+    padding: 23px 16px 16px;
+    border-radius: 14px;
+    background: #f7f8fc;
+}
+
+.ur-forum-quote {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    color: rgba(79, 70, 229, 0.2);
+    font-family: Georgia, serif;
+    font-size: 3.2rem;
+    line-height: 1;
+}
+
+.ur-forum-question-text p {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    color: #4d5569;
+    font-size: 0.86rem;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+/* ==================================================
+   CEVAPLAR
+   ================================================== */
+
+.ur-forum-answers {
+    margin-top: 17px;
+    padding-top: 16px;
+    border-top: 1px solid #eceef3;
+}
+
+.ur-forum-answers-heading h4 {
+    margin: 0 0 13px;
+    color: #333b4e;
+    font-size: 0.84rem;
+}
+
+.ur-forum-answer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ur-forum-answer-item {
+    display: flex;
+    padding: 12px;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 12px;
+    background: #f8f8fc;
+}
+
+.ur-forum-answer-avatar {
+    display: grid;
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(
+        135deg,
+        #4f46e5,
+        #7d6bea
+    );
+    color: #ffffff;
+    font-size: 0.58rem;
+    font-weight: 800;
+}
+
+.ur-forum-answer-item > div {
+    min-width: 0;
+}
+
+.ur-forum-answer-item strong {
+    color: #353d50;
+    font-size: 0.74rem;
+}
+
+.ur-forum-answer-item p {
+    margin: 4px 0 0;
+    color: #606779;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.ur-forum-answer-item time {
+    display: block;
+    margin-top: 6px;
+    color: #9a9fac;
+    font-size: 0.65rem;
+}
+
+.ur-forum-no-answer {
+    display: flex;
+    padding: 12px;
+    align-items: center;
+    gap: 9px;
+    border-radius: 11px;
+    background: #f8f8fc;
+}
+
+.ur-forum-no-answer p {
+    margin: 0;
+    color: #888e9c;
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+/* ==================================================
+   CEVAP FORMU
+   ================================================== */
+
+.ur-answer-form-box {
+    margin-top: 14px;
+}
+
+.ur-answer-details {
+    border: 1px solid #e4e6ed;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.ur-answer-details summary {
+    display: flex;
+    padding: 12px 14px;
+    align-items: center;
+    gap: 7px;
+    color: #4f46e5;
+    font-size: 0.8rem;
+    font-weight: 800;
+    cursor: pointer;
+    list-style: none;
+}
+
+.ur-answer-details summary::-webkit-details-marker {
+    display: none;
+}
+
+.ur-answer-details[open] summary {
+    border-bottom: 1px solid #eceef3;
+}
+
+.ur-answer-form {
+    display: flex;
+    padding: 14px;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ur-answer-form textarea {
+    min-height: 90px;
+}
+
+.ur-answer-submit-button {
+    align-self: flex-end;
+    min-height: 40px;
+    padding: 9px 15px;
+    font-size: 0.78rem;
+}
+
+/* ==================================================
+   BOŞ FORUM DURUMU
+   ================================================== */
+
+.ur-forum-empty-state {
+    grid-column: 1 / -1;
+    padding: 55px 25px;
+    border: 1px dashed #cfcaf4;
+    border-radius: 20px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.ur-forum-empty-icon {
+    display: grid;
+    width: 66px;
+    height: 66px;
+    margin: 0 auto 17px;
+    place-items: center;
+    border-radius: 50%;
+    background: #efedff;
+    font-size: 1.75rem;
+}
+
+.ur-forum-empty-state h3 {
+    margin: 0;
+    color: #263046;
+}
+
+.ur-forum-empty-state p {
+    margin: 10px 0 0;
+    color: #7d8495;
+}
+
+/* ==================================================
+   TABLET
+   ================================================== */
+
+@media (max-width: 1050px) {
+
+    .ur-forum-container {
+        grid-template-columns: 310px minmax(0, 1fr);
+    }
+
+    .ur-forum-question-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 850px) {
+
+    .ur-forum-hero {
+        padding: 38px 32px;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .ur-forum-hero-info {
+        width: 100%;
+        flex-basis: auto;
+    }
+
+    .ur-forum-container {
+        grid-template-columns: 1fr;
+    }
+
+    .ur-question-create-card {
+        position: static;
+    }
+
+    .ur-forum-question-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* ==================================================
+   MOBİL
+   ================================================== */
+
+@media (max-width: 680px) {
+
+    .ur-forum-page {
+        padding: 18px 14px 65px;
+    }
+
+    .ur-forum-hero {
+        min-height: auto;
+        padding: 32px 22px;
+        border-radius: 21px;
+    }
+
+    .ur-forum-hero h1 {
+        font-size: 2.15rem;
+    }
+
+    .ur-forum-container {
+        padding-top: 45px;
+    }
+
+    .ur-question-create-card {
+        padding: 21px;
+    }
+
+    .ur-forum-section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .ur-forum-question-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ur-forum-question-card {
+        padding: 19px;
+    }
+
+    .ur-forum-question-top {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .ur-forum-author {
+        padding-left: 2px;
+    }
 }
 
 /* =========================

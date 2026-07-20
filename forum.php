@@ -91,37 +91,106 @@ $questions = mysqli_query($conn, "
 ");
 ?>
 
-<main class="forum-page">
+<main class="ur-forum-page">
 
-  <section class="forum-hero">
-    <h1>Öğrenci Forumu</h1>
-    <p>
-      Üniversite, bölüm, barınma ve kampüs hayatı hakkında soru sorabilir;
-      diğer öğrencilerin cevaplarını inceleyebilirsin.
-    </p>
+  <!-- =========================
+       FORUM ÜST ALANI
+       ========================= -->
+
+  <section class="ur-forum-hero">
+
+    <div class="ur-forum-hero-content">
+
+      <span class="ur-forum-label">
+        💬 Öğrenci Topluluğu
+      </span>
+
+      <h1>
+        Öğrenci Forumu
+      </h1>
+
+      <p>
+        Üniversite, bölüm, kampüs ve barınma hakkında merak ettiklerini
+        sorabilir; öğrencilerin gerçek deneyimlerinden yararlanabilirsin.
+      </p>
+
+    </div>
+
+    <div class="ur-forum-hero-info">
+
+      <div class="ur-forum-hero-icon">
+        🎓
+      </div>
+
+      <div>
+        <strong>Birlikte Keşfet</strong>
+        <span>Sor, cevapla ve deneyimlerini paylaş.</span>
+      </div>
+
+    </div>
+
   </section>
 
-  <section class="forum-main-container">
+  <!-- =========================
+       FORUM ANA İÇERİĞİ
+       ========================= -->
 
-    <section class="question-create-box">
-      <h2>Soru Oluştur</h2>
-      <p>Merak ettiğin konuyu sor, diğer öğrenciler deneyimlerini paylaşsın.</p>
+  <section class="ur-forum-container">
 
-      <form class="forum-form" method="POST" action="forum.php">
+    <!-- =========================
+         SORU OLUŞTURMA FORMU
+         ========================= -->
 
-        <div class="form-group">
-          <label for="question-category">Kategori</label>
-          <select id="question-category" name="category" required>
+    <aside class="ur-question-create-card">
+
+      <div class="ur-question-create-heading">
+
+        <span class="ur-question-create-icon">
+          ✏️
+        </span>
+
+        <div>
+          <h2>Yeni Soru Oluştur</h2>
+
+          <p>
+            Merak ettiğin konuyu öğrenci topluluğuna sor.
+          </p>
+        </div>
+
+      </div>
+
+      <form
+        class="ur-forum-form"
+        method="POST"
+        action="forum.php"
+      >
+
+        <div class="ur-forum-form-group">
+
+          <label for="question-category">
+            Kategori
+          </label>
+
+          <select
+            id="question-category"
+            name="category"
+            required
+          >
             <option value="">Kategori seçin</option>
             <option value="Tercih">Tercih</option>
             <option value="Kampüs">Kampüs</option>
             <option value="Bölüm">Bölüm</option>
             <option value="Barınma">Barınma</option>
           </select>
+
         </div>
 
-        <div class="form-group">
-          <label for="question-title">Soru Başlığı</label>
+        <div class="ur-forum-form-group">
+
+          <label for="question-title">
+            Soru Başlığı
+          </label>
+
           <input
             type="text"
             id="question-title"
@@ -129,119 +198,387 @@ $questions = mysqli_query($conn, "
             placeholder="Örn: Kampüs hayatı nasıl?"
             required
           >
+
         </div>
 
-        <div class="form-group">
-          <label for="question-text">Sorunuz</label>
+        <div class="ur-forum-form-group">
+
+          <label for="question-text">
+            Sorunuz
+          </label>
+
           <textarea
             id="question-text"
             name="question_text"
             rows="5"
-            placeholder="Sorunuzu detaylı yazın..."
+            placeholder="Sorunuzu detaylı şekilde yazın..."
             required
           ></textarea>
+
         </div>
 
-        <button type="submit" name="question_submit" class="forum-submit-btn">
+        <button
+          type="submit"
+          name="question_submit"
+          class="ur-forum-submit-button"
+        >
+          <span>＋</span>
           Soruyu Paylaş
         </button>
+
       </form>
-    </section>
 
-    <section class="forum-questions">
-      <h2>Son Sorular</h2>
+      <div class="ur-forum-tip">
 
-      <?php if ($questions && mysqli_num_rows($questions) > 0): ?>
-        <?php while($row = mysqli_fetch_assoc($questions)): ?>
+        <span>💡</span>
 
-          <article class="forum-question-card">
+        <p>
+          Açık ve anlaşılır sorular daha hızlı cevap alır.
+        </p>
 
-            <header class="forum-question-header">
-              <span class="forum-tag">
-                <?php echo htmlspecialchars($row['category']); ?>
-              </span>
+      </div>
 
-              <small>
-                <?php echo htmlspecialchars(getInitials($row['fullname'])); ?> tarafından soruldu
-              </small>
-            </header>
+    </aside>
 
-            <h3><?php echo htmlspecialchars($row['title']); ?></h3>
+    <!-- =========================
+         SON SORULAR
+         ========================= -->
 
-            <p>
-              <?php echo nl2br(htmlspecialchars($row['question'])); ?>
-            </p>
+    <section class="ur-forum-questions">
 
-            <section class="forum-answer-box">
-              <h4>Cevaplar</h4>
+      <div class="ur-forum-section-heading">
 
-              <?php
-              $questionId = (int)$row['id'];
+        <div>
 
-              $answersStmt = mysqli_prepare($conn, "
-                  SELECT forum_answers.*, users.fullname
-                  FROM forum_answers
-                  INNER JOIN users ON forum_answers.user_id = users.id
-                  WHERE forum_answers.question_id = ?
-                  ORDER BY forum_answers.created_at DESC
-              ");
+          <span class="ur-forum-section-label">
+            Topluluk Paylaşımları
+          </span>
 
-              mysqli_stmt_bind_param($answersStmt, "i", $questionId);
-              mysqli_stmt_execute($answersStmt);
-              $answersResult = mysqli_stmt_get_result($answersStmt);
-              ?>
+          <h2>Son Sorular</h2>
 
-              <?php if ($answersResult && mysqli_num_rows($answersResult) > 0): ?>
-                <?php while($answer = mysqli_fetch_assoc($answersResult)): ?>
-                  <p>
-                    <strong><?php echo htmlspecialchars(getInitials($answer['fullname'])); ?>:</strong>
-                    <?php echo htmlspecialchars($answer['answer']); ?>
-                  </p>
-                <?php endwhile; ?>
-              <?php else: ?>
-                <p>Henüz cevap yok.</p>
-              <?php endif; ?>
-            </section>
+          <p>
+            Öğrencilerin son paylaştığı soruları ve cevapları incele.
+          </p>
 
-            <div class="answer-form-box">
-              <h4>Cevap Yaz</h4>
+        </div>
 
-              <form class="answer-form" method="POST" action="forum.php">
-                <input
-                  type="hidden"
-                  name="question_id"
-                  value="<?php echo (int)$row['id']; ?>"
-                >
+        <span class="ur-forum-question-count">
 
-                <div class="form-group">
-                  <label for="answer-text-<?php echo (int)$row['id']; ?>">Cevabınız</label>
-                  <textarea
-                    id="answer-text-<?php echo (int)$row['id']; ?>"
-                    name="answer_text"
-                    rows="4"
-                    placeholder="Cevabınızı yazın..."
-                    required
-                  ></textarea>
+          <?php
+          echo $questions
+            ? mysqli_num_rows($questions)
+            : 0;
+          ?>
+
+          Soru
+
+        </span>
+
+      </div>
+
+      <div class="ur-forum-question-grid">
+
+        <?php if (
+          $questions &&
+          mysqli_num_rows($questions) > 0
+        ): ?>
+
+          <?php while (
+            $row = mysqli_fetch_assoc($questions)
+          ): ?>
+
+            <article class="ur-forum-question-card">
+
+              <!-- Soru üst bilgileri -->
+
+              <div class="ur-forum-question-top">
+
+                <span class="ur-forum-category">
+
+                  <?php
+                  echo htmlspecialchars(
+                    $row["category"]
+                  );
+                  ?>
+
+                </span>
+
+                <span class="ur-forum-author">
+
+                  👤
+                  <?php
+                  echo htmlspecialchars(
+                    getInitials(
+                      $row["fullname"]
+                    )
+                  );
+                  ?>
+
+                </span>
+
+              </div>
+
+              <!-- Soru başlığı -->
+
+              <h3>
+
+                <?php
+                echo htmlspecialchars(
+                  $row["title"]
+                );
+                ?>
+
+              </h3>
+
+              <!-- Soru metni -->
+
+              <div class="ur-forum-question-text">
+
+                <span class="ur-forum-quote">
+                  “
+                </span>
+
+                <p>
+
+                  <?php
+                  echo nl2br(
+                    htmlspecialchars(
+                      $row["question"]
+                    )
+                  );
+                  ?>
+
+                </p>
+
+              </div>
+
+              <!-- =========================
+                   CEVAPLAR
+                   ========================= -->
+
+              <div class="ur-forum-answers">
+
+                <div class="ur-forum-answers-heading">
+
+                  <h4>
+                    💬 Cevaplar
+                  </h4>
+
                 </div>
 
-                <button type="submit" name="answer_submit">
-                  Cevapla
-                </button>
-              </form>
-            </div>
+                <?php
+                $questionId = (int)$row["id"];
+
+                $answersStmt = mysqli_prepare(
+                  $conn,
+                  "
+                  SELECT
+                    forum_answers.*,
+                    users.fullname
+
+                  FROM forum_answers
+
+                  INNER JOIN users
+                  ON forum_answers.user_id = users.id
+
+                  WHERE forum_answers.question_id = ?
+
+                  ORDER BY forum_answers.created_at DESC
+                  "
+                );
+
+                mysqli_stmt_bind_param(
+                  $answersStmt,
+                  "i",
+                  $questionId
+                );
+
+                mysqli_stmt_execute($answersStmt);
+
+                $answersResult =
+                  mysqli_stmt_get_result($answersStmt);
+                ?>
+
+                <?php if (
+                  $answersResult &&
+                  mysqli_num_rows($answersResult) > 0
+                ): ?>
+
+                  <div class="ur-forum-answer-list">
+
+                    <?php while (
+                      $answer =
+                        mysqli_fetch_assoc($answersResult)
+                    ): ?>
+
+                      <div class="ur-forum-answer-item">
+
+                        <span class="ur-forum-answer-avatar">
+
+                          <?php
+                          echo htmlspecialchars(
+                            getInitials(
+                              $answer["fullname"]
+                            )
+                          );
+                          ?>
+
+                        </span>
+
+                        <div>
+
+                          <strong>
+
+                            <?php
+                            echo htmlspecialchars(
+                              getInitials(
+                                $answer["fullname"]
+                              )
+                            );
+                            ?>
+
+                          </strong>
+
+                          <p>
+
+                            <?php
+                            echo nl2br(
+                              htmlspecialchars(
+                                $answer["answer"]
+                              )
+                            );
+                            ?>
+
+                          </p>
+
+                          <?php if (
+                            !empty($answer["created_at"])
+                          ): ?>
+
+                            <time>
+
+                              🕒
+                              <?php
+                              echo htmlspecialchars(
+                                date(
+                                  "d.m.Y",
+                                  strtotime(
+                                    $answer["created_at"]
+                                  )
+                                )
+                              );
+                              ?>
+
+                            </time>
+
+                          <?php endif; ?>
+
+                        </div>
+
+                      </div>
+
+                    <?php endwhile; ?>
+
+                  </div>
+
+                <?php else: ?>
+
+                  <div class="ur-forum-no-answer">
+
+                    <span>💭</span>
+
+                    <p>
+                      Henüz cevap verilmemiş. İlk cevabı sen yazabilirsin.
+                    </p>
+
+                  </div>
+
+                <?php endif; ?>
+
+              </div>
+
+              <!-- =========================
+                   CEVAP YAZMA FORMU
+                   ========================= -->
+
+              <div class="ur-answer-form-box">
+
+                <details class="ur-answer-details">
+
+                  <summary>
+                    <span>✍️</span>
+                    Cevap Yaz
+                  </summary>
+
+                  <form
+                    class="ur-answer-form"
+                    method="POST"
+                    action="forum.php"
+                  >
+
+                    <input
+                      type="hidden"
+                      name="question_id"
+                      value="<?php echo (int)$row["id"]; ?>"
+                    >
+
+                    <div class="ur-forum-form-group">
+
+                      <label
+                        for="answer-text-<?php echo (int)$row["id"]; ?>"
+                      >
+                        Cevabınız
+                      </label>
+
+                      <textarea
+                        id="answer-text-<?php echo (int)$row["id"]; ?>"
+                        name="answer_text"
+                        rows="4"
+                        placeholder="Deneyimini veya bilgini paylaş..."
+                        required
+                      ></textarea>
+
+                    </div>
+
+                    <button
+                      type="submit"
+                      name="answer_submit"
+                      class="ur-answer-submit-button"
+                    >
+                      Cevabı Gönder
+                    </button>
+
+                  </form>
+
+                </details>
+
+              </div>
+
+            </article>
+
+          <?php endwhile; ?>
+
+        <?php else: ?>
+
+          <!-- Soru bulunmadığında -->
+
+          <article class="ur-forum-empty-state">
+
+            <span class="ur-forum-empty-icon">
+              💬
+            </span>
+
+            <h3>Henüz soru paylaşılmamış</h3>
+
+            <p>
+              Öğrenci topluluğundaki ilk soruyu sen oluşturabilirsin.
+            </p>
 
           </article>
 
-        <?php endwhile; ?>
+        <?php endif; ?>
 
-      <?php else: ?>
-
-        <article class="forum-question-card">
-          <h3>Henüz soru yok</h3>
-          <p>İlk soruyu sen paylaşabilirsin.</p>
-        </article>
-
-      <?php endif; ?>
+      </div>
 
     </section>
 

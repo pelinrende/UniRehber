@@ -104,179 +104,366 @@ $commentsQuery = "
 $commentsResult = mysqli_query($conn, $commentsQuery);
 ?>
 
-<main class="reviews-page">
+<main class="ur-reviews-page">
 
   <!-- =========================
        SAYFA ÜST ALANI
        ========================= -->
 
-  <section class="reviews-hero">
+  <section class="ur-reviews-hero">
 
-    <span class="reviews-label">
-      Öğrenci Deneyimleri
-    </span>
+    <div class="ur-reviews-hero-content">
 
-    <h1>Üniversite Yorumları</h1>
+      <span class="ur-reviews-label">
+        💬 Öğrenci Deneyimleri
+      </span>
 
-    <p>
-      Gerçek öğrencilerin üniversite, bölüm ve kampüs deneyimlerini inceleyerek
-      tercih sürecinde daha bilinçli karar verebilirsin.
-    </p>
+      <h1>
+        Üniversite Yorumları
+      </h1>
 
-  </section>
+      <p>
+        Öğrencilerin üniversite, bölüm ve kampüs deneyimlerini
+        inceleyerek tercihlerini daha bilinçli yap.
+      </p>
 
-  <!-- =========================
-       İSTATİSTİK KARTLARI
-       ========================= -->
+    </div>
 
-  <section
-      class="reviews-stats"
-      aria-label="Yorum istatistikleri"
-  >
+    <div class="ur-reviews-hero-actions">
 
-    <!-- Toplam yorum -->
-    <article class="review-stat-card">
+      <a
+        href="universities.php"
+        class="ur-primary-button"
+      >
+        Yorum Yap
+      </a>
 
-      <strong>
-        <?php echo (int)$totalComments; ?>
-      </strong>
+      <a
+        href="forum.php"
+        class="ur-secondary-button"
+      >
+        Foruma Katıl
+      </a>
 
-      <span>Toplam Yorum</span>
-
-    </article>
-
-    <!-- Ortalama puan -->
-    <article class="review-stat-card">
-
-      <strong>
-        <?php echo number_format((float)$avgRating, 1); ?>
-      </strong>
-
-      <span>Ortalama Puan</span>
-
-    </article>
-
-    <!-- Yorumlanan üniversite -->
-    <article class="review-stat-card">
-
-      <strong>
-        <?php echo (int)$commentedUni; ?>
-      </strong>
-
-      <span>Yorumlanan Üniversite</span>
-
-    </article>
+    </div>
 
   </section>
 
   <!-- =========================
-       YORUM LİSTESİ
+       İSTATİSTİK ALANI
        ========================= -->
 
   <section
-      class="reviews-list"
-      aria-label="Öğrenci yorumları"
+    class="ur-reviews-stats"
+    aria-label="Yorum istatistikleri"
   >
 
-    <!-- Eğer yorum varsa -->
-    <?php if ($commentsResult && mysqli_num_rows($commentsResult) > 0): ?>
+    <article class="ur-stat-card">
 
-      <!-- Tüm yorumları döngü ile ekrana basar -->
-      <?php while($row = mysqli_fetch_assoc($commentsResult)): ?>
+      <span class="ur-stat-icon">
+        💬
+      </span>
 
-        <article class="review-card">
+      <div>
 
-          <!-- Üniversite adı ve puan -->
-          <header class="review-card-header">
+        <strong>
+          <?php echo (int)$totalComments; ?>
+        </strong>
 
-            <div>
+        <span>
+          Toplam Yorum
+        </span>
 
-              <h2>
-                <?php echo htmlspecialchars($row['university_name']); ?>
-              </h2>
+      </div>
 
-              <p>
-                <?php echo htmlspecialchars($row['university_city']); ?>
-              </p>
+    </article>
 
-            </div>
+    <article class="ur-stat-card">
 
-            <span class="review-rating">
+      <span class="ur-stat-icon">
+        ⭐
+      </span>
 
-              ⭐ <?php echo (int)$row['rating']; ?>/5
+      <div>
 
-            </span>
+        <strong>
+          <?php echo number_format((float)$avgRating, 1); ?>
+        </strong>
 
-          </header>
+        <span>
+          Ortalama Puan
+        </span>
 
-          <!-- Kullanıcının yorumu -->
-          <p class="review-text">
+      </div>
 
-            “<?php echo htmlspecialchars($row['comment']); ?>”
+    </article>
 
-          </p>
+    <article class="ur-stat-card">
 
-          <!-- Kullanıcı bilgileri -->
-          <footer class="review-footer">
+      <span class="ur-stat-icon">
+        🏫
+      </span>
 
-            <div>
+      <div>
 
-              <!-- Kullanıcının baş harfleri -->
-              <strong>
+        <strong>
+          <?php echo (int)$commentedUni; ?>
+        </strong>
 
-                <?php
-                echo htmlspecialchars(
-                    getInitials($row['fullname'])
-                );
-                ?>
+        <span>
+          Yorumlanan Üniversite
+        </span>
 
-              </strong>
+      </div>
 
-              <!-- Bölüm bilgisi -->
-              <span>
+    </article>
 
-                <?php
-                echo htmlspecialchars(
-                    $row['department']
-                    ?: 'Bölüm belirtilmemiş'
-                );
-                ?>
+  </section>
+
+  <!-- =========================
+       YORUMLAR İÇERİĞİ
+       ========================= -->
+
+  <section class="ur-reviews-content">
+
+    <div class="ur-reviews-heading">
+
+      <div>
+
+        <span class="ur-heading-label">
+          Öğrenciler Ne Diyor?
+        </span>
+
+        <h2>
+          Son Paylaşılan Yorumlar
+        </h2>
+
+        <p>
+          Öğrencilerin bölüm ve kampüs deneyimlerini keşfet.
+        </p>
+
+      </div>
+
+      <a
+        href="universities.php"
+        class="ur-add-review-button"
+      >
+        <span>＋</span>
+        Yeni Yorum
+      </a>
+
+    </div>
+
+    <!-- =========================
+         YORUM KARTLARI
+         ========================= -->
+
+    <div class="ur-reviews-grid">
+
+      <?php if (
+        $commentsResult &&
+        mysqli_num_rows($commentsResult) > 0
+      ): ?>
+
+        <?php while (
+          $row = mysqli_fetch_assoc($commentsResult)
+        ): ?>
+
+          <?php
+          $rating = (int)$row["rating"];
+          ?>
+
+          <article class="ur-review-card">
+
+            <!-- Üniversite bilgisi -->
+
+            <div class="ur-review-card-top">
+
+              <div class="ur-university-area">
+
+                <span class="ur-university-icon">
+                  🏛️
+                </span>
+
+                <div>
+
+                  <h3>
+                    <?php
+                    echo htmlspecialchars(
+                      $row["university_name"]
+                    );
+                    ?>
+                  </h3>
+
+                  <span class="ur-university-city">
+
+                    📍
+                    <?php
+                    echo htmlspecialchars(
+                      $row["university_city"]
+                    );
+                    ?>
+
+                  </span>
+
+                </div>
+
+              </div>
+
+              <span class="ur-rating-number">
+
+                <?php echo $rating; ?>/5
 
               </span>
 
             </div>
 
-            <!-- Yorum tarihi -->
-            <time datetime="<?php echo htmlspecialchars($row['created_at']); ?>">
+            <!-- Yıldız alanı -->
 
-              <?php echo htmlspecialchars($row['created_at']); ?>
+            <div
+              class="ur-review-stars"
+              aria-label="<?php echo $rating; ?> üzerinden 5 puan"
+            >
 
-            </time>
+              <?php for ($i = 1; $i <= 5; $i++): ?>
 
-          </footer>
+                <span class="<?php echo $i <= $rating ? "ur-star-active" : "ur-star-empty"; ?>">
+                  ★
+                </span>
+
+              <?php endfor; ?>
+
+            </div>
+
+            <!-- Yorum metni -->
+
+            <div class="ur-review-message">
+
+              <span class="ur-quote-mark">
+                “
+              </span>
+
+              <p>
+                <?php
+                echo nl2br(
+                  htmlspecialchars(
+                    $row["comment"]
+                  )
+                );
+                ?>
+              </p>
+
+            </div>
+
+            <!-- Bölüm bilgisi -->
+
+            <div class="ur-department">
+
+              <span>
+                📚
+              </span>
+
+              <p>
+                <?php
+                echo htmlspecialchars(
+                  $row["department"]
+                  ?: "Bölüm belirtilmemiş"
+                );
+                ?>
+              </p>
+
+            </div>
+
+            <!-- Kullanıcı ve tarih -->
+
+            <div class="ur-review-card-bottom">
+
+              <div class="ur-review-user">
+
+                <span class="ur-review-avatar">
+
+                  <?php
+                  echo htmlspecialchars(
+                    getInitials(
+                      $row["fullname"]
+                    )
+                  );
+                  ?>
+
+                </span>
+
+                <div>
+
+                  <strong>
+                    <?php
+                    echo htmlspecialchars(
+                      getInitials(
+                        $row["fullname"]
+                      )
+                    );
+                    ?>
+                  </strong>
+
+                  <span>
+                    Öğrenci
+                  </span>
+
+                </div>
+
+              </div>
+
+              <time
+                datetime="<?php echo htmlspecialchars($row["created_at"]); ?>"
+                class="ur-review-date"
+              >
+                🕒
+                <?php
+                echo htmlspecialchars(
+                  date(
+                    "d.m.Y",
+                    strtotime($row["created_at"])
+                  )
+                );
+                ?>
+              </time>
+
+            </div>
+
+          </article>
+
+        <?php endwhile; ?>
+
+      <?php else: ?>
+
+        <!-- Yorum bulunmadığında -->
+
+        <article class="ur-empty-reviews">
+
+          <span class="ur-empty-icon">
+            💬
+          </span>
+
+          <h2>
+            Henüz yorum paylaşılmamış
+          </h2>
+
+          <p>
+            Üniversite deneyimini paylaşarak tercih yapacak
+            öğrencilere yardımcı olabilirsin.
+          </p>
+
+          <a
+            href="universities.php"
+            class="ur-primary-button"
+          >
+            İlk Yorumu Yap
+          </a>
 
         </article>
 
-      <?php endwhile; ?>
+      <?php endif; ?>
 
-    <?php else: ?>
-
-      <!-- Eğer yorum yoksa -->
-      <article class="no-review-card">
-
-        <h2>Henüz yorum yok</h2>
-
-        <p>
-          İlk yorumu bir üniversite detay sayfasından sen ekleyebilirsin.
-        </p>
-
-        <a href="universities.php">
-          Üniversitelere Git
-        </a>
-
-      </article>
-
-    <?php endif; ?>
+    </div>
 
   </section>
 
