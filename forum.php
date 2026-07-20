@@ -5,7 +5,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include("includes/db.php");
-include("includes/header.php");
 
 /* Giriş yapmayan kullanıcı forumu kullanamaz */
 if (!isset($_SESSION["user_id"])) {
@@ -82,13 +81,83 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["answer_submit"])) {
     }
 }
 
-/* Soruları kullanıcı bilgisiyle getir */
-$questions = mysqli_query($conn, "
-    SELECT forum_questions.*, users.fullname
+/* =========================
+   FORUM ARAMA VE FİLTRELEME
+   ========================= */
+
+$search = trim($_GET["search"] ?? "");
+$filterCategory = trim($_GET["filter_category"] ?? "");
+
+$sql = "
+    SELECT
+        forum_questions.*,
+        users.fullname
+
     FROM forum_questions
-    INNER JOIN users ON forum_questions.user_id = users.id
+
+    INNER JOIN users
+    ON forum_questions.user_id = users.id
+
+    WHERE 1 = 1
+";
+
+$params = [];
+$types = "";
+
+/* Arama kelimesi varsa başlık ve soru içinde arar */
+if ($search !== "") {
+
+    $sql .= "
+        AND (
+            forum_questions.title LIKE ?
+            OR forum_questions.question LIKE ?
+            OR forum_questions.category LIKE ?
+        )
+    ";
+
+    $searchTerm = "%" . $search . "%";
+
+    $params[] = $searchTerm;
+    $params[] = $searchTerm;
+    $params[] = $searchTerm;
+
+    $types .= "sss";
+}
+
+/* Kategori seçilmişse kategoriye göre filtreler */
+if ($filterCategory !== "") {
+
+    $sql .= "
+        AND forum_questions.category = ?
+    ";
+
+    $params[] = $filterCategory;
+    $types .= "s";
+}
+
+$sql .= "
     ORDER BY forum_questions.id DESC
-");
+";
+
+$questionsStmt = mysqli_prepare($conn, $sql);
+
+if (!$questionsStmt) {
+    die("SQL Hatası: " . mysqli_error($conn));
+}
+
+if (!empty($params)) {
+
+    mysqli_stmt_bind_param(
+        $questionsStmt,
+        $types,
+        ...$params
+    );
+}
+
+mysqli_stmt_execute($questionsStmt);
+
+$questions = mysqli_stmt_get_result($questionsStmt);
+include("includes/header.php");
 ?>
 
 <main class="ur-forum-page">
@@ -246,7 +315,7 @@ $questions = mysqli_query($conn, "
 
     <section class="ur-forum-questions">
 
-      <div class="ur-forum-section-heading">
+      <div class="ur-forum-section-heading">        
 
         <div>
 
@@ -275,6 +344,93 @@ $questions = mysqli_query($conn, "
         </span>
 
       </div>
+<!-- =========================
+     FORUM ARAMA ALANI
+     ========================= -->
+
+<form
+    class="ur-forum-search"
+    method="GET"
+    action="forum.php"
+>
+
+    <div class="ur-forum-search-input">
+
+        <span>
+            🔍
+        </span>
+
+        <input
+            type="search"
+            name="search"
+            placeholder="Soru başlığı veya konu ara..."
+            value="<?php echo htmlspecialchars($search); ?>"
+        >
+
+    </div>
+
+    <select
+        name="filter_category"
+        class="ur-forum-search-category"
+    >
+
+        <option value="">
+            Tüm Kategoriler
+        </option>
+
+        <option
+            value="Tercih"
+            <?php echo $filterCategory === "Tercih" ? "selected" : ""; ?>
+        >
+            Tercih
+        </option>
+
+        <option
+            value="Kampüs"
+            <?php echo $filterCategory === "Kampüs" ? "selected" : ""; ?>
+        >
+            Kampüs
+        </option>
+
+        <option
+            value="Bölüm"
+            <?php echo $filterCategory === "Bölüm" ? "selected" : ""; ?>
+        >
+            Bölüm
+        </option>
+
+        <option
+            value="Barınma"
+            <?php echo $filterCategory === "Barınma" ? "selected" : ""; ?>
+        >
+            Barınma
+        </option>
+
+    </select>
+
+    <button
+        type="submit"
+        class="ur-forum-search-button"
+    >
+        Ara
+    </button>
+
+    <?php if (
+        $search !== "" ||
+        $filterCategory !== ""
+    ): ?>
+
+        <a
+            href="forum.php"
+            class="ur-forum-search-clear"
+        >
+            Temizle
+        </a>
+
+    <?php endif; ?>
+
+</form>
+
 
       <div class="ur-forum-question-grid">
 
@@ -398,104 +554,101 @@ $questions = mysqli_query($conn, "
                 $answersResult =
                   mysqli_stmt_get_result($answersStmt);
                 ?>
-
                 <?php if (
-                  $answersResult &&
-                  mysqli_num_rows($answersResult) > 0
-                ): ?>
+    $answersResult &&
+    mysqli_num_rows($answersResult) > 0
+): ?>
 
-                  <div class="ur-forum-answer-list">
+    <div class="ur-forum-answer-list">
 
-                    <?php while (
-                      $answer =
-                        mysqli_fetch_assoc($answersResult)
-                    ): ?>
+        <?php while (
+            $answer = mysqli_fetch_assoc($answersResult)
+        ): ?>
 
-                      <div class="ur-forum-answer-item">
+            <div class="ur-forum-answer-item">
 
-                        <span class="ur-forum-answer-avatar">
+                <span class="ur-forum-answer-avatar">
 
-                          <?php
-                          echo htmlspecialchars(
+                    <?php
+                    echo htmlspecialchars(
+                        getInitials(
+                            $answer["fullname"]
+                        )
+                    );
+                    ?>
+
+                </span>
+
+                <div>
+
+                    <strong>
+
+                        <?php
+                        echo htmlspecialchars(
                             getInitials(
-                              $answer["fullname"]
-                            )
-                          );
-                          ?>
-
-                        </span>
-
-                        <div>
-
-                          <strong>
-
-                            <?php
-                            echo htmlspecialchars(
-                              getInitials(
                                 $answer["fullname"]
-                              )
-                            );
-                            ?>
+                            )
+                        );
+                        ?>
 
-                          </strong>
-
-                          <p>
-
-                            <?php
-                            echo nl2br(
-                              htmlspecialchars(
-                                $answer["answer"]
-                              )
-                            );
-                            ?>
-
-                          </p>
-
-                          <?php if (
-                            !empty($answer["created_at"])
-                          ): ?>
-
-                            <time>
-
-                              🕒
-                              <?php
-                              echo htmlspecialchars(
-                                date(
-                                  "d.m.Y",
-                                  strtotime(
-                                    $answer["created_at"]
-                                  )
-                                )
-                              );
-                              ?>
-
-                            </time>
-
-                          <?php endif; ?>
-
-                        </div>
-
-                      </div>
-
-                    <?php endwhile; ?>
-
-                  </div>
-
-                <?php else: ?>
-
-                  <div class="ur-forum-no-answer">
-
-                    <span>💭</span>
+                    </strong>
 
                     <p>
-                      Henüz cevap verilmemiş. İlk cevabı sen yazabilirsin.
+
+                        <?php
+                        echo nl2br(
+                            htmlspecialchars(
+                                $answer["answer"]
+                            )
+                        );
+                        ?>
+
                     </p>
 
-                  </div>
+                    <?php if (!empty($answer["created_at"])): ?>
 
-                <?php endif; ?>
+                        <time>
 
-              </div>
+                            🕒
+                            <?php
+                            echo htmlspecialchars(
+                                date(
+                                    "d.m.Y",
+                                    strtotime(
+                                        $answer["created_at"]
+                                    )
+                                )
+                            );
+                            ?>
+
+                        </time>
+
+                    <?php endif; ?>
+
+                </div>
+
+            </div>
+
+        <?php endwhile; ?>
+
+    </div>
+
+<?php else: ?>
+
+    <div class="ur-forum-no-answer">
+
+        <span>💭</span>
+
+        <p>
+            Henüz cevap verilmemiş. İlk cevabı sen yazabilirsin.
+        </p>
+
+    </div>
+
+<?php endif; ?>
+
+</div>
+
 
               <!-- =========================
                    CEVAP YAZMA FORMU
@@ -554,29 +707,54 @@ $questions = mysqli_query($conn, "
 
               </div>
 
-            </article>
+            </article>  
+                        </article>
 
-          <?php endwhile; ?>
+        <?php endwhile; ?>
 
-        <?php else: ?>
+    <?php else: ?>
 
-          <!-- Soru bulunmadığında -->
-
-          <article class="ur-forum-empty-state">
+        <article class="ur-forum-empty-state">
 
             <span class="ur-forum-empty-icon">
-              💬
+                💬
             </span>
 
-            <h3>Henüz soru paylaşılmamış</h3>
+            <?php if (
+                $search !== "" ||
+                $filterCategory !== ""
+            ): ?>
 
-            <p>
-              Öğrenci topluluğundaki ilk soruyu sen oluşturabilirsin.
-            </p>
+                <h3>
+                    Aramana uygun soru bulunamadı
+                </h3>
 
-          </article>
+                <p>
+                    Farklı bir kelime veya kategoriyle tekrar arama yapabilirsin.
+                </p>
 
-        <?php endif; ?>
+                <a
+                    href="forum.php"
+                    class="ur-forum-empty-clear"
+                >
+                    Tüm Soruları Göster
+                </a>
+
+            <?php else: ?>
+
+                <h3>
+                    Henüz soru paylaşılmamış
+                </h3>
+
+                <p>
+                    Öğrenci topluluğundaki ilk soruyu sen oluşturabilirsin.
+                </p>
+
+            <?php endif; ?>
+
+        </article>
+
+    <?php endif; ?>
 
       </div>
 
