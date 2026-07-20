@@ -49,7 +49,7 @@ function showInitials($fullname) {
   <title>UniRotası</title>
 
   <!-- CSS dosyasını projeye bağlar -->
-  <link rel="stylesheet" href="/unirehber/css/style.css?v=103">
+  <link rel="stylesheet" href="/unirehber/css/style.css?v=107">
 
 </head>
 
